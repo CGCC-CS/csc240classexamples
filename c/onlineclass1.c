@@ -17,55 +17,65 @@ int main(void) {
     char c = 'A';
     char str1[] = "CSC240";
 
-    csc240_t struct1 = {40, "Struct"};
+    csc240_t struct1 = {40, "Struct1"};
     csc240_t struct2;
-    
-    printf("Hello, World!\n");
+
+    printf("Hello, world!\n");
 
     /* Reading user input */
     printf("Enter a number: ");
     scanf("%d", &count);
-    for (int ii=0;ii<count;ii++) {
+
+    /* loops */
+    for(int ii=0;ii<count;ii++) {
         printf("%d ", ii+1);
     }
     printf("\n");
     printf("\n");
 
-    /* for-loop */
-    for (int ii=0;ii<10;ii++) {
-        printf("array[%d] = %d\n", ii, array[ii]);
-        num += ii;
+    int jj =0;
+    while (jj<10) {
+        printf("array[%d] = %d\n", jj, array[jj]);
+        num += jj;
+        jj++;
     }
     printf("\n");
 
-    /* printing a number as decimal, octal, & hexadecimal */
-    printf("num = %d %o %x %X\n", num, num, num, num);
+    /* Printing a number as a decimal, octal, & hexidecimal */
+    printf("num: dec: %d, oct: %o, hex: %X\n", num, num, num);
     printf("\n");
 
-    /* printing a character as a character, decimal, & hex */
-    printf("c = %c %d %X\n", c, c, c);
-    printf("c+10 = %c %d %X\n", c+10, c+10, c+10);
-    printf("'I' + '!' = %c %d %X\n", 'I'+'!', 'I'+'!', 'I'+'!'); 
+    /* Printing a character as a character, decimal, octal, & hexidecimal */
+    printf("c: char: %c, dec: %d, oct: %o, hex: %X\n", c, c, c, c);
+    printf("c: char: %c, dec: %d, oct: %o, hex: %X\n", c, c, c, c);
+    printf("'I': char: %c, dec: %d, oct: %o, hex: %X\n", 'I', 'I', 'I', 'I');
+    printf("'!': char: %c, dec: %d, oct: %o, hex: %X\n", '!', '!', '!', '!');
+    printf("'I'+'!': char: %c, dec: %d, oct: %o, hex: %X\n", 'I'+'!', 'I'+'!', 'I'+'!', 'I'+'!');
     printf("\n");
 
-    /* printing a string */
-    printf("String as a string: %s\n", str1);
-    printf("Character from a string: %c\n", str1[0]);
-    printf("Character from a string: %c\n", str1[3]);
-
+    /* Printing a string */
+    printf("str as a string: %s\n", str1);
+    printf("str+2 as a string: %s\n", str1+2);
+    printf("str[0] as a character: %c\n", str1[0]);
+    printf("str[3] as a character: %c\n", str1[3]);
+    printf("Characters of %s: ", str1);
     for(int ii=0;ii<strlen(str1);ii++) {
         printf("%c ", str1[ii]);
+    }
+    printf("\n");
+    printf("Ascii values of %s: ", str1);
+    for(int ii=0;ii<strlen(str1);ii++) {
+        printf("%d ", str1[ii]);
     }
     printf("\n");
     printf("\n");
 
     /* Working with structs */
     struct2.x = 20;
-    strncpy(struct2.n, "Program", LENGTH);
-
+    strncpy(struct2.n, "STRUCT2", LENGTH);
     printf("struct1: x=%d n=%s\n", struct1.x, struct1.n);
     printf("struct2: x=%d n=%s\n", struct2.x, struct2.n);
 
-
+    printf("\n");
+    return 0;
 }
-
