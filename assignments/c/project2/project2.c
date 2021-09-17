@@ -8,7 +8,7 @@
 #define BUFFERLEN 100
 
 /* Parses a string into a term data structure */
-term_t * term_from_string(char * buff) {
+term_t * string_to_term(char * buff) {
     term_t * ret = malloc(sizeof(term_t));
     ret->coefficient=atoi(strtok(buff, " "));
     ret->var=*strtok(NULL, " ");
@@ -21,11 +21,15 @@ void read_terms_from_file(node_t ** term_list) {
 
     FILE *fp;
     char buffer[BUFFERLEN];
-    fp = fopen("terms.txt", "r");
+
+    if ( (fp = fopen("terms.txt", "r")) == NULL) {
+        fprintf(stderr, "\nERROR: Missing terms.txt\n\n");
+        exit(-1);
+    }
 
     while (fgets(buffer, BUFFERLEN,fp)) {
         term_t * this_term;
-        this_term =  term_from_string(buffer);
+        this_term =  string_to_term(buffer);
         list_add(term_list, this_term);
     }
     fclose(fp);
@@ -40,7 +44,6 @@ int main() {
     poly_t * poly2;
     node_t * curr;
 
-
     /* Read terms into term_list */
     node_t * term_list = NULL;
     read_terms_from_file(&term_list);
@@ -52,8 +55,9 @@ int main() {
     printf("testterm2: %s\n", term_to_string(&testterm2));
     printf("testterm3: %s\n", term_to_string(&testterm3));
 
-
-    /* ADD CODE HERE TO ADD THE TERMS IN term_list TO A NEW POLYNOMIAL */
+    /* 
+        ADD CODE HERE TO ADD THE TERMS IN term_list TO A NEW POLYNOMIAL 
+    */
 
     /* Polynomial test code */
     printf("\nTesting polynomial.c/h : \n");
