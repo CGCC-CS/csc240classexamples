@@ -1,6 +1,10 @@
-#ifndef HEADER_H  /* guard */
+#ifndef HEADER_H
 #define HEADER_H
-#define LENGTH 10
 
-int fact(int n);
+// Symbolic constants that apply globally
+#define LENGTH 25
+
+// Forward declaration of functions defined in the module
+int fact(int);
+
 #endif
