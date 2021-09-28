@@ -23,7 +23,7 @@ int main() {
 
   cout << endl << "y: " << endl << "  ";
   y.print();
-  cout << "  y.doubleNum=" << x.doubleNum() << endl;;
+  cout << "  y.doubleNum=" << y.doubleNum() << endl;;
 
   return 0;
 }
