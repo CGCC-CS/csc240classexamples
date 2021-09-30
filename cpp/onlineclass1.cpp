@@ -10,14 +10,15 @@ class Shape {
         Shape(string t="Shape") : type(t) {}  
 
         // non-virtual method
-        void print() { cout << "I am a shape" << endl; }
-        
-        // virtual method
+        void print() { cout << "SHAPE: I am a shape" << endl; }
+
+        // virtual method 
         virtual void printType() { cout << "SHAPE: " << type << endl; }
 
-        // pure virtual (abstract) methods
+        // pure virtual method (abstract)
         virtual int area() = 0;
         virtual int perimeter() = 0;
+
 };
 
 class Rectangle : public Shape {
@@ -25,14 +26,17 @@ class Rectangle : public Shape {
         int length;
         int width;
     public:
-        Rectangle(int l, int w, string t="Rectangle")
+        Rectangle(int l, int w, string t="Rectange")
             : Shape(t), length(l), width(w) {}
 
-        int area() { return length * width; }
-        int perimeter() { return 2 * length + 2 * width; }
+        int area() override { return length * width; }
+        int perimeter() override { return 2 * length + 2 * width; }
 
-        void print() {cout << type << " length=" << length <<
-                              " width=" << width << endl; }
+        void print() {
+            cout << "RECTANGLE: " << type << " length=" << length << 
+                    " width=" << width << endl;
+        }
+
         void printType() {
             if (length == width) {
                 cout << "RECTANGLE: " << "Square" << endl;
@@ -44,30 +48,36 @@ class Rectangle : public Shape {
 };
 
 int main() {
-    /* Cannot instantiate Shape objects 
+    /*
+    // You cannot instantiate an abstract object 
     Shape s("MyShape");  
     s.print(); 
     s.printType();
+    Shape * sPtr = new Shape("Shape ptr");
+    sPtr->print();
+    sPtr->printType();
     */
 
-    Rectangle r1(5, 7);  
-    Rectangle * r2 = new Rectangle(3,4);
+
+    Rectangle r1(5, 7);
+    Rectangle * r2 = new Rectangle(4, 4);
     Shape * sPtr = r2;
 
-    cout << "Rectangle variable r1:" << endl;
-    r1.print(); 
+    cout << endl << "Rectangle variable r1:" << endl;
+    r1.print();
     r1.printType();
-    cout << "area=" << r1.area() << "  perimeter=" << r1.perimeter() << endl;
+    cout << "area=" << r1.area() << " perimeter=" << r1.perimeter() << endl;
 
-    cout << endl << "Rectangle *r2 (pointer):" << endl;
-    r2->print(); 
+    cout << endl << "Rectangle pointer r2:" << endl;
+    r2->print();
     r2->printType();
-    cout << "area=" << r2->area() << "  perimeter=" << r2->perimeter() << endl;
+    cout << "area=" << r2->area() << " perimeter=" << r2->perimeter() << endl;
 
-    cout << endl << "Shape *sPtr=r2 (pointer to r2):" << endl;
-    sPtr->print(); 
+    cout << endl << "Shape pointer sPtr to rectantle r2:" << endl;
+    sPtr->print();
     sPtr->printType();
-    cout << "area=" << sPtr->area() << "  perimeter=" << sPtr->perimeter() << endl;
+    cout << "area=" << sPtr->area() << " perimeter=" << sPtr->perimeter() << endl;
+
 
     return 0;
 }
