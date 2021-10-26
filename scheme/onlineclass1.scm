@@ -13,6 +13,7 @@
 'Prolog     ; symbol
 227/19      ; fraction
 
+; Defining names
 (define a 10)
 (define class "CSC240")
 (define subject 'Scheme)
@@ -38,15 +39,15 @@
 (lambda (x) (+ x 1))   ; unnamed procedure
 ((lambda (x) (+ x 1)) 30)
 ((lambda (x) (+ x 1)) a)
-((lambda (x) (+ x 1)) (+ 3 7 9 6 23))
+((lambda (x) (+ x 1)) (+ 3 (* 7 9) (- 23 6)))
 
 (newline)
 "Giving a function a name"
-(define increment (lambda (x) (+ x 1)))  ; give name to an unnamed procedure
+(define increment (lambda (x) (+ x 1)))    ; give name to unamed procedure
 increment
 (increment 30)
 (increment a)
-(increment (+ 3 7 9 6 23))
+(increment (+ 3 (* 7 9) (- 23 6)))
 
 (define abso
   (lambda (x)
@@ -55,7 +56,9 @@ increment
         x)))
 (abso a)
 (abso (- 3 14))
-(abso (+ 3 4 -2 38 -384))
+(abso (- a))
+(abso -7)
+(abso (+ 3 4 -2 38 -483))
 (abso 10)
 
 (newline)
@@ -63,6 +66,7 @@ increment
 (list 1 2 3 4)
 '(1 2 3 4)
 (quote (1 2 3 4))
+
 "list vs quote"
 (list a 1 'Hello "World" + (* 2 7))
 (quote (a 1 'Hello "World" + (* 2 7)))
@@ -90,10 +94,11 @@ lst2
 (car (cdr (cdr (cdr lst))))
 
 (newline)
-"Lists of procedures"
+"List of procedures"
 (define procs (list sqrt increment list))
 procs
 (car procs)
+(cdr procs)
 ((car procs) 25)
 ((car (cdr procs)) 25)
 ((car (cdr (cdr procs))) 25)
