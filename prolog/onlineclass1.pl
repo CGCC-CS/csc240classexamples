@@ -1,16 +1,25 @@
-% coronavirus/4 country  # of cases  # of deaths # of recoveries
-coronavirus(unitedstates,10421956,244448,6552610).
-coronavirus(spain,1426602,39345,1073577).
-coronavirus(italy,960373,41750,345298).
-coronavirus(india,8591075,127104,7957206).
-coronavirus(france,1807479,30793,129735).
+% coronavirus/4 
+% country	infections	deaths	recoveries
+coronavirus(USA,47916190,783565,37918301).
+coronavirus(India,34447536,463655,33849785).
+coronavirus(Brazil,21957967	611318,21151342).
+coronavirus(UK,9561099,142898,7825200).
+coronavirus(Russia,9109094,256597,7812557).
+coronavirus(Turkey,8408166,73531,7888959).
+coronavirus(France,7287645,118154,7009009).
+coronavirus(Iran,6037718,128167	5695949).
+coronavirus(Spain,5047156,87673,4889801).
 
 % population/2
 population(unitedstates,331002651).
-population(spain,46754778).
-population(italy,60451826).
-population(germany,83783942).
+population(india, 1380004385).
+population(brazil, 212559417).
+population(uk, 67886011).
+population(russia(145964432).
+population(turkey, 84339067).
 population(france,65273511).
+population(iran, 83992949).
+population(spain,46754778).
 
 % Rules
 recovery_rate(Country, Rate) :- coronavirus(Country, Cases, _, Recoveries),
