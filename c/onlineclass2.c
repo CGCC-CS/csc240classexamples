@@ -12,56 +12,83 @@ int main() {
     /* Variables */
     int num = 0;
     char str1[] = "CSC240";
-    csc240_t structVar = {40, "Struct"};
+    csc240_t struct_var = {40, "Struct"};
 
     /* Pointer variables */
-    int * iPtr = &num;
-    char * cPtr = str1;
-    csc240_t * structPtr = &structVar;
+    int * i_ptr = &num;
+    char * c_ptr = str1;  /* equivalent &str1[0] */
+    csc240_t * struct_ptr = &struct_var;
 
     /* Printing out pointers & addresses */
-    printf("Inital values:\n");
-    printf("num=%d, str1=%s\n", num, str1);
-    printf("iPtr=%p  address=%p, *iPtr=%d\n", (void*) iPtr, (void*) &iPtr, *iPtr);
-    printf("cPtr=%p  address=%p, *cPtr=%c\n", (void*) cPtr, (void*) &cPtr, *cPtr);
+    printf("Initial values:\n");
+    printf("num=%d (address=%p)\n", num, (void*) &num);
+    printf("str1=%s (address=%p)\n", str1, (void*) &str1[0]);
+    printf("str1+2=%s (address=%p)\n", str1+2, (void*) (str1+2));
+    printf("i_ptr=%p (address=%p) *i_ptr=%d\n", (void*) i_ptr, (void*) &i_ptr, *i_ptr);
+    printf("c_ptr=%p (address=%p) *c_ptr=%s\n", (void*) c_ptr, (void*) &c_ptr, c_ptr);
 
-    /* Changing values with a pointer */
-    *iPtr = 24; /* *iPtr gives me an alias of num */
-    *(cPtr+4) = '2'; /* *(cPtr+4) gives me an alias str1[4] */
-    printf("\nAfter changing:\n");
-    printf("num=%d, str1=%s\n", num, str1);
-    printf("iPtr=%p  address=%p, *iPtr=%d\n", (void*) iPtr, (void*) &iPtr, *iPtr);
-    printf("cPtr=%p  address=%p, *cPtr=%c\n", (void*) cPtr, (void*) &cPtr, *cPtr);
+    /* Changing values with a poitner */
+    printf("\n");
+    *i_ptr = 24;       /* *i_ptr gives me an alias num */
+    *(c_ptr+4) = '2';  /* *(c_ptr+4) give me an alias str1[4] */
+    printf("After changing:\n");
+    printf("num=%d (address=%p)\n", num, (void*) &num);
+    printf("str1=%s (address=%p)\n", str1, (void*) &str1[0]);
+    printf("i_ptr=%p (address=%p) *i_ptr=%d\n", (void*) i_ptr, (void*) &i_ptr, *i_ptr);
+    printf("c_ptr=%p (address=%p) *c_ptr=%s\n", (void*) c_ptr, (void*) &c_ptr, c_ptr);
 
-    /* Use char ptr to go through a string */
-    printf("\nPrint str1 using cPtr: ");
-    while(*cPtr != '\0') {
-        putchar(*cPtr);
-        cPtr++;
+    /* Using a char pointer to go through a string */
+    printf("\n");
+    printf("1 - Print str1 using c_ptr: ");
+    c_ptr=str1;
+    while(*c_ptr != '\0') { 
+        putchar(*c_ptr);
+        c_ptr++;
     }
     putchar('\n');
 
+    printf("2 - Print str1 using c_ptr: ");
+    c_ptr=str1;
+    for(int ii=0;ii<strlen(c_ptr);ii++) { 
+        printf("[%c]", *(c_ptr+ii));
+    }
+    printf("\n");
+
+    printf("3 - Print str1 ASCII values using c_ptr: ");
+    c_ptr=str1;
+    for(int ii=0;ii<strlen(c_ptr);ii++) { 
+        printf("[%d]", *(c_ptr+ii));
+    }
+    printf("\n");
+
     /* Working with structs */
-    printf("\nWorking with structs:\n");
-    printf("structVar = %d %s address=%p\n", structVar.x, structVar.n, (void*) &structVar);
-    printf("structPtr = %p (%d %s) address=%p\n", (void*) structPtr, structPtr->x, structPtr->n, (void*) &structPtr);
+    printf("\n");
+    printf("Working with structs:\n");
+    printf("struct_var = %d %s address=%p\n", struct_var.x, struct_var.n, (void*) &struct_var);
+    printf("struct_ptr = %p (%d %s) address=%p\n", (void*) struct_ptr, struct_ptr->x, struct_ptr->n, (void*) &struct_ptr);
 
     /* Changing a struct with a pointer */
-    structPtr->x = 75;
-    strncpy(structPtr->n, "PointerFun", LENGTH);
-    printf("\nAfter Changes:\n");
-    printf("structVar = %d %s address=%p\n", structVar.x, structVar.n, (void*) &structVar);
-    printf("structPtr = %p (%d %s) address=%p\n", (void*) structPtr, structPtr->x, structPtr->n, (void*) &structPtr);
+    struct_ptr->x = 75;
+    strncpy(struct_ptr->n, "PointerFun", LENGTH);
+    printf("After changes:\n");
+    printf("struct_var = %d %s address=%p\n", struct_var.x, struct_var.n, (void*) &struct_var);
+    printf("struct_ptr = %p (%d %s) address=%p\n", (void*) struct_ptr, struct_ptr->x, struct_ptr->n, (void*) &struct_ptr);
 
-
-    /* String character by character */
-    /* cPtr = 17;  You shouldn't assign integer literals to pointers */
-    /* cPtr = &structVar;  You can look at memory byte-by-byte */
-    cPtr = str1;
-    /* for (int ii=0;ii<15;ii++) {   DANGEROUS: hard-coded index for end of string */
-    for (int ii=0;ii<strlen(str1);ii++) {   
-        printf("%d: *cptr='%c' (%d)\n", ii, *(cPtr+ii), *(cPtr+ii));
+    /* Look at memory character by character */
+    c_ptr = str1;
+    for(int ii=0;ii<strlen(str1);ii++) {
+        printf("  %d: *c_ptr+ii=%c (%d %X)\n", ii, *(c_ptr+ii), *(c_ptr+ii), *(c_ptr+ii));
     }
 
+    struct_var.x = 0x4748494A;
+    /*  Try uncommenting this and see what happens
+    strncpy(struct_ptr->n, "Short", 6);
+    */
+    printf("\nLooking at a struct with char*\n");
+    char *scan = &struct_var;
+    for(int ii=0;ii<sizeof(struct_var);ii++) {
+        printf("  %d: *scan+ii=%c (%d %X)\n", ii, *(scan+ii), *(scan+ii), *(scan+ii));
+    }
+    
     return 0;
 }
