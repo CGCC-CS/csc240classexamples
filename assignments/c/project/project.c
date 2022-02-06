@@ -28,6 +28,11 @@ void read_terms_from_file(node_t ** term_list) {
     }
 
     while (fgets(buffer, BUFFERLEN,fp)) {
+        /* The following case ensures we aren't reading an empty line */
+        if (buffer[0] < '0' || buffer[0] > '9') {
+            continue;
+        }
+
         term_t * this_term;
         this_term =  string_to_term(buffer);
         list_add(term_list, this_term);
