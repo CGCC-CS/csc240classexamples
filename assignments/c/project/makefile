@@ -1,8 +1,8 @@
 CC=gcc 
 CFLAGS=-Wall -pedantic --std=c11
 
-all: project2.c term.o polynomial.o basiclist.o
-	$(CC) $(CFLAGS) project2.c term.o polynomial.o basiclist.o -o project2
+all: project.c term.o polynomial.o basiclist.o
+	$(CC) $(CFLAGS) project.c term.o polynomial.o basiclist.o -o project
 
 term.o: term.c
 	$(CC) $(CFLAGS) -c term.c
@@ -14,4 +14,4 @@ basiclist.o: basiclist.c
 	$(CC) $(CFLAGS) -c basiclist.c
 
 clean:
-	rm -f *.o *.out project2 *~ project2.exe
+	rm -f *.o *.out project *~ project.exe
