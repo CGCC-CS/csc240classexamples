@@ -17,6 +17,9 @@
 (define a 10)
 (define class "CSC240")
 (define subject 'Scheme)
+a
+class
+subject
 
 (newline)
 "Predicates"
@@ -27,6 +30,7 @@
 (number? (+ 3 10))
 (number? class)
 
+
 (newline)
 "Literals"
 3     ; integer literal
@@ -36,30 +40,32 @@
 
 (newline)
 "Functions"
-(lambda (x) (+ x 1))   ; unnamed procedure
+(lambda (x) (+ x 1))
 ((lambda (x) (+ x 1)) 30)
+((lambda (x) (+ x 1)) -42)
+((lambda (x) (+ x 1)) (+ 7 8))
 ((lambda (x) (+ x 1)) a)
-((lambda (x) (+ x 1)) (+ 3 (* 7 9) (- 23 6)))
+((lambda (x) (+ x 1)) (* 7 (- (* 4 6) (* 3  2))))
 
 (newline)
 "Giving a function a name"
-(define increment (lambda (x) (+ x 1)))    ; give name to unamed procedure
+(define increment (lambda (x) (+ x 1)))
 increment
 (increment 30)
+(increment -42)
+(increment (+ 7 8))
 (increment a)
-(increment (+ 3 (* 7 9) (- 23 6)))
+;(increment)  ; error!
 
-(define abso
-  (lambda (x)
-    (if (< x 0)
-        (- x)
-        x)))
-(abso a)
-(abso (- 3 14))
-(abso (- a))
-(abso -7)
-(abso (+ 3 4 -2 38 -483))
-(abso 10)
+"min"
+(define min
+  (lambda (a b)
+    (if (> b a)
+        a
+        b)))
+(min 3 4)
+(min 4 3)
+(min (+ 3 10) (- 20 10))
 
 (newline)
 "Lists"
@@ -98,7 +104,6 @@ lst2
 (define procs (list sqrt increment list))
 procs
 (car procs)
-(cdr procs)
 ((car procs) 25)
 ((car (cdr procs)) 25)
 ((car (cdr (cdr procs))) 25)
