@@ -3,6 +3,7 @@
 
 "Quoting"
 (quote (1 x +))
+'(1 x +)
 (list 1 x +)
 (+ 10 20)
 '(+ 10 20)
@@ -13,8 +14,8 @@
 (define lst2 (cons 'a '(b c d)))
 (define lst3 (list 'w 'x 'y 'z))
 (define lst4 (list 'w x 'y 'z))
-(define lst5 (append '(7 8) '(9 10)))
-(define lst6 (cons '(7 8) '(9 10)))
+(define lst5 (cons '(7 8) '(9 10)))
+(define lst6 (append '(7 8) '(9 10)))
 (define lst7 (cons 7 (cons 8 (cons 9 (cons 10 '())))))
 lst1
 lst2
@@ -23,16 +24,21 @@ lst4
 lst5
 lst6
 lst7
+
+(newline)
+"cons vs append)"
 (cons 0 lst1)
-(append lst1 lst5)
+;(append 0 lst1)  ; append takes lists as parameters
+(append (list 0) lst1)
 (cons lst1 lst5)
+(append lst1 lst5)
 (cons 0 (append lst1 lst5))
 
 (newline)
 "Defining list procedures"
 lst1
 lst2
-lst5
+lst6
 
 "Add n to every element of a list"
 (define add-n-to-list
@@ -41,8 +47,8 @@ lst5
         '()
         (cons (+ n (car lst)) (add-n-to-list (cdr lst) n)))))
 (add-n-to-list lst1 3)
-(add-n-to-list lst5 -10)
-(add-n-to-list lst1 (car (cdr lst5)))
+(add-n-to-list lst6 -10)
+(add-n-to-list lst1 (car (cdr lst6)))
 
 "Sum up a list"
 (define sum-list
@@ -51,10 +57,10 @@ lst5
         0
         (+ (car lst) (sum-list (cdr lst))))))
 (sum-list lst1)
-(sum-list lst5)
+(sum-list lst6)
 (sum-list (cons 10 lst1))
 (sum-list (add-n-to-list lst1 10))
-(+ (sum-list lst1) (* 10 (length lst1)))
+(+ (sum-list lst1) (* 5 (length lst1)))
 
 (newline)
 "Remove the odd numbers"
@@ -68,9 +74,10 @@ lst5
       ((odd? (car lst)) (remove-odds (cdr lst)))
       (else (cons (car lst) (remove-odds (cdr lst)))))))
 (remove-odds lst1)
-(remove-odds lst5)
-(remove-odds (append lst1 lst5))
+(remove-odds lst6)
+(remove-odds (append lst1 lst6))
 
+(newline)
 "Compare two lists"
 (define list-equal?
   (lambda (lst1 lst2)
@@ -118,3 +125,4 @@ lst5
 ;(car '())
 ;(cdr '())
 
+      
