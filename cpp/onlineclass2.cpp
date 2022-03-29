@@ -18,24 +18,25 @@ class OnlineExample {
             }
         }
 
-        // Copy constructor
-        OnlineExample(const OnlineExample & original) : s("COPY_" +original.s){
+        // Copy Constructor
+        OnlineExample(const OnlineExample & original) : s("COPY of " + original.s) {
             cout << "Copy Constructor for " << original.s << " x=" << original.x << " y=" << original.y << endl;
             x = new int(*original.x);
-            int y_size = 10;
-            y = new int[y_size];
-            for (int ii=0;ii<y_size;ii++) {
-                y[ii] = ii+1;
+            y = new int[10];
+            for (int ii=0;ii<10;ii++) {
+                y[ii]=ii+1;
             }
+            cout << "     New Object " << s << " x=" << x << " y=" << y << endl;
         }
 
         // Destructor
         ~OnlineExample(void) {
             cout << "Destructor for " << s << endl;
-            delete(x);
-            x=nullptr;
-            delete[](y);
-            y=nullptr;
+            delete x;
+            x = nullptr;
+            delete[] y;
+            y = nullptr;
+            s = "";
         }
 };
 
@@ -47,9 +48,9 @@ void exampleFunction(const OnlineExample &functionParameterObject1, OnlineExampl
 }
 
 int main() {
-    int var = 10;
-    int * intPtr = new int(20);
-    int ** intPtrPtr = new int *;
+    int var = 10;                    // Integer variable
+    int * intPtr = new int(20);      // Integer pointer variable
+    int ** intPtrPtr = new int *;    // Double integer pointer variable
     *intPtrPtr = new int(30);
     int * arrPtr = new int[5];
 
@@ -59,8 +60,8 @@ int main() {
 
     cout << "variable var: " << var << " address: " << &var << endl;
     cout << "pointer intPtr: " << intPtr << " dereferenced: " << *intPtr << " address: " << &intPtr << endl;
-    cout << "pointer to pointer intPtrPtr: " << intPtrPtr << " dereferenced: " << *intPtrPtr << 
-               " double dereferenced: " << **intPtrPtr << " address: " << &intPtrPtr << endl;
+    cout << "pointer to pointer intPtrPtr: " << intPtrPtr << " dereferenced: " << *intPtrPtr << endl;
+    cout << "         double dereferenced: " << **intPtrPtr << " address: " << &intPtrPtr << endl;
     cout << "pointer arrPtr: " << arrPtr << " dereferenced: " << *arrPtr << " address: " << &arrPtr << "  values: ";
     for (int ii=0;ii<5;ii++) {
         cout << arrPtr[ii] << " ";
@@ -72,13 +73,23 @@ int main() {
     OnlineExample stackObj(5, 10, "stack object");
     OnlineExample * heapObj = new OnlineExample(4, 8, "heap object");
 
-    cout << "---------- Calling exampleFunction ----------" << endl;
-    exampleFunction(staticObj, stackObj);
-    cout << "------- Returned from exampleFunction -------" << endl;
 
-    delete(heapObj);
+    cout << "---------- Calling exampleFunction1 ----------" << endl;
+    exampleFunction(staticObj, stackObj);
+    cout << "------- Returned from exampleFunction1 -------" << endl;
+    cout << "---------- Calling exampleFunction2 ----------" << endl;
+    exampleFunction(staticObj, stackObj);
+    cout << "------- Returned from exampleFunction2 -------" << endl;
+
+    // Delete the integer poitners
     delete(intPtr);
+    delete(*intPtrPtr);
     delete(intPtrPtr);
     delete[](arrPtr);
+
+    // Delete the object pointer
+    delete(heapObj);
     cout << "-------- End of testing OnlineExample --------" << endl;
+
+    return 0;
 }
