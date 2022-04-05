@@ -15,18 +15,19 @@
 (square x)
 (square (* x z))
 
+(newline)
 "Lists"
 (list 1 2 3 4)
 (quote (a b c d))
-(list x y z +)
-(list 'x y z '+)
-(quote (x y z +))
+(list 'a x +)
+(quote (a x +))
 (define lst (list 1 2 3 4 5))
 (car lst)
 (cdr lst)
+(cadr lst)
 (cons 0 lst)
-(cons '(1 2 3) '(4 5 6))
-(append '(1 2 3) '(4 5 6))
+(cons '(a b c) '(1 2 3))
+(append '(a b c) '(1 2 3))
 
 (newline)
 "Pairs"
@@ -35,7 +36,7 @@
 (car pr)
 (cdr pr)
 (cons 3 '())
-(cons 'm '(n o p))
+(cons 'm '(n o p q))
 
 (newline)
 "Example list procedures"
@@ -53,10 +54,10 @@
         '()
         (cons (/ (car lst) 2) (halve-each-element (cdr lst))))))
 (halve-each-element '(37 89 42 28))
-(halve-each-element lst)
+
 
 (newline)
-"Higher-order function"
+"Higher-order functions"
 (define red
   (lambda (operator base-case lst)
     (if (null? lst)
@@ -67,34 +68,37 @@ lst
 (red + 0 lst)
 "Multiply the list"
 (red * 1 lst)
+"Halve every element in the list"
+(define halve (lambda (x) (/ x 2)))
+(red (lambda (carval cdrval) (cons (halve carval) cdrval)) '() lst)
 "Double every element in the list"
 (red (lambda (carval cdrval) (cons (* 2 carval) cdrval)) '() lst)
 "Length of a list"
 (red (lambda (x y) (+ 1 y)) 0 lst)
-(red (lambda (x y) (+ 1 y)) 0 '(a b c d e f g h i j))
+(red (lambda (x y) (+ 1 y)) 0 '(a b c d e f g h i j k l))
 "Get all even numbers"
-(red (lambda (carval cdrresult) (if (= 1 (remainder carval 2)) cdrresult (cons carval cdrresult))) '() lst)
+(red (lambda (carval cdrval) (if (even? carval) (cons carval cdrval) cdrval)) '() lst)
 "Reverse a list"
-(define rev
-  (lambda (lst)
-    (red (lambda (x y) (append y (list x))) '() lst)))
-(rev lst)
-(rev '(a b c d e f g h i j k l m n o p))
+(red (lambda (x y) (append y (list x))) '() lst)
+(red (lambda (x y) (append y (list x))) '() '(a b c d e f g h i j k l))
 
 (newline)
-"apply, map, filter"
+"apply, map, & filter"
 (apply + lst)
 (apply * lst)
 (map square lst)
 (map (lambda (x) (+ x 3)) lst)
 (map (lambda (x) (/ x 2)) lst)
 (define crazylist (list 1 'a '(2 3 4) 5 'six (+ 3 4) "Eight" 9 (/ 40 4)))
+crazylist
 (map number? crazylist)
+(map (lambda (x) (not (number? x))) crazylist)
 (filter number? crazylist)
+(filter (lambda (x) (not (number? x))) crazylist)
+"combining filter, map, & apply"
 (map square (filter number? crazylist))
 (apply + (map square (filter number? crazylist)))
 
-(newline)
 "let structures"
 (define a 3)
 (define b 5)
@@ -108,7 +112,6 @@ lst
      (b (+ a 4))
      (c (- b 5)))
   (+ a b c))
-
 
 (define double-pi-list
   (lambda (lst)
@@ -128,6 +131,7 @@ lst
   (+ a b))
 ((lambda (a b) (+ a b)) 20 10)
 
+"lambda -> let"
 ((lambda (m n) (- m n)) 35 17)
 (let
     ((m 35)
@@ -163,7 +167,8 @@ lst
 (f 1 1 1)
 ((f 1 1 1) 3)
 "f(x) = 2x^2 + 3x - 5"
+(f 2 3 -5)
 ((f 2 3 -5) 3)
 ((f 2 3 -5) -1)
 ((f 2 3 -5) 10)
-
+(map (f 2 3 -5) lst)
