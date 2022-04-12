@@ -39,5 +39,5 @@ increment(X, X1) :- X1 is X + 1.
 % Rule - is_integer/1
 is_integer(X) :- member(X, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]).
 
-% equation A + B = C
+% equation/3 A + B = C
 equation(A,B,C) :- is_integer(A), is_integer(B), C is A + B.
