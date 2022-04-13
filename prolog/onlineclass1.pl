@@ -22,24 +22,22 @@ population(iran,   83992949).
 population(spain,  46754778).
 
 % Rules
-recovery_rate(Country, Rate) :- coronavirus(Country, Cases, _, Recoveries), 
+recovery_rate(Country, Rate) :- coronavirus(Country, Cases, _, Recoveries),
                                 Rate is Recoveries / Cases * 100.
-
 mortality(Country, Rate) :- coronavirus(Country, Cases, Deaths, _),
-                            Rate is Deaths / Cases * 100.
-
+                                Rate is Deaths / Cases * 100.
 covid_percent(Country, Percent) :- coronavirus(Country, Cases, _, _),
-                                   population(Country, Population),
+                                   population(Country, Population), 
                                    Percent is Cases / Population * 100.
 
-% same/2 - if two variables should have the same value, use the same name!
+% same/2 - if two variables shoudl have the same value, use the same name!
 same(A, A).
 
-% Rule - increment/2
+% increment/2
 increment(X, X1) :- X1 is X + 1.
 
 % Rule - is_integer/1
 is_integer(X) :- member(X, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]).
 
-% equation A + B = C
-equation(A, B, C) :- is_integer(A), is_integer(B), C is A + B.
+% equation/3 A + B = C
+equation(A,B,C) :- is_integer(A), is_integer(B), C is A + B.
