@@ -15,14 +15,14 @@ parent(sophia,alexander).
 parent(sophia,evelyn).
 parent(sophia,isabella).
 sister(mia, sophia).
-sister(sophia,mia).
-sister(mia, liam).
+sister(mia, henry).
+sister(sophia, henry).
 sister(alice,steve).
 sister(evelyn, alexander).
 sister(evelyn, isabella).
 sister(isabella, alexander).
-brother(liam, mia).
-brother(liam, sophia).
+brother(henry, mia).
+brother(henry, sophia).
 brother(steve,alice).
 brother(alexander,evelyn).
 brother(alexander,isabella).
