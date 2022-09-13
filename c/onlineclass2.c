@@ -13,6 +13,7 @@ int main() {
     int num = 0;
     char str1[] = "CSC240";
     csc240_t struct_var = {40, "Struct"};
+    char str2[] = "ABC123";
 
     /* Pointer variables */
     int * i_ptr = &num;   /* Integer pointer */
@@ -24,6 +25,7 @@ int main() {
     printf("Variables:\n");
     printf("  num=%d (address=%p)\n", num, (void*) &num);
     printf("  str1=%s (address=%p)\n", str1, (void*) &str1);
+    printf("  str2=%s (address=%p)\n", str2, (void*) &str2);
     printf("  struct_var={%d,%s} (address=%p)\n", struct_var.x, struct_var.n, (void*) &struct_var);
     /* pointers */
     printf("Pointers:\n");
@@ -67,4 +69,41 @@ int main() {
         putchar(*(c_ptr+ii));
     }
     printf("\n");
+
+    printf("3 - Print str1 ASCII values using c_ptr: ");
+    c_ptr = str1;
+    while(*c_ptr != '\0') { 
+        printf("[%d]", *c_ptr);
+        c_ptr++;
+    }
+    printf("\n\n");
+
+    /* Working with structs */
+    printf("Working with structs:\n");
+    printf("struct_var = %d %s address=%p\n", struct_var.x, struct_var.n, (void*) &struct_var);
+    printf("struct_ptr=%p [%d %s] address=%p\n", (void*) struct_ptr, struct_ptr->x, 
+                                                 struct_ptr->n, (void*) &struct_ptr);
+
+    /* Changing a struct with a pointer */
+    struct_ptr->x = 23;                                                
+    strncpy(struct_ptr->n, "PointerFun", LENGTH);
+    printf("After changes:\n");
+    printf("struct_var = %d %s address=%p\n", struct_var.x, struct_var.n, (void*) &struct_var);
+    printf("struct_ptr=%p [%d %s] address=%p\n", (void*) struct_ptr, struct_ptr->x, 
+                                                 struct_ptr->n, (void*) &struct_ptr);
+
+    /* Look at memory character by character */
+    c_ptr = str2;
+    for (int ii=0;ii<25;ii++) {
+        printf("   %d: *c_ptr+ii = [%c] (%d %X)\n", ii, *(c_ptr+ii), *(c_ptr+ii), *(c_ptr+ii));
+    }
+
+    printf("\nLooking at a struct with char*\n");
+    struct_var.x = 0x4748494A;
+    char *scan = &struct_var;
+    for(int ii=0;ii<sizeof(struct_var);ii++) {
+        printf("  %d: *scan+ii=%c (%d %X)\n", ii, *(scan+ii), *(scan+ii), *(scan+ii));
+    }
+
+    return 0;
 }
