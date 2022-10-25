@@ -1,12 +1,13 @@
 #lang scheme
+
 (define x 3)
 
 "Quoting"
-(quote (1 x +))
-'(1 x +)
-(list 1 x +)
-(+ 10 20)
-'(+ 10 20)
+(+ x 1)
+(quote (+ x 1))
+'(+ x 1)
+(list + x 1)
+(list (+ x 1))
 
 (newline)
 "Defining lists"
@@ -26,9 +27,9 @@ lst6
 lst7
 
 (newline)
-"cons vs append)"
+"cons vs append"
 (cons 0 lst1)
-;(append 0 lst1)  ; append takes lists as parameters
+;(append 0 lst1)  ; contract violation - append takes 2 lists as parameters
 (append (list 0) lst1)
 (cons lst1 lst5)
 (append lst1 lst5)
@@ -67,6 +68,9 @@ lst6
 (define odd?
   (lambda (x)
     (= (remainder x 2) 1)))
+(odd? -3)
+(odd? 17)
+(odd? 42)
 (define remove-odds
   (lambda (lst)
     (cond
@@ -75,6 +79,7 @@ lst6
       (else (cons (car lst) (remove-odds (cdr lst)))))))
 (remove-odds lst1)
 (remove-odds lst6)
+(remove-odds '(1 3 5 7))
 (remove-odds (append lst1 lst6))
 
 (newline)
@@ -86,17 +91,19 @@ lst6
       ((or (null? lst1) (null? lst2)) #f)
       ((equal? (car lst1) (car lst2)) (list-equal? (cdr lst1) (cdr lst2)))
       (else #f))))
-(list-equal? '(1 2 3 4) lst1)
+(list-equal? lst3 lst3)
+(list-equal? lst1 '(1 2 3 4))
 (list-equal? lst1 '(4 3 2 1))
-(list-equal? lst1 (cons 1 (cons 2 '(3 4))))
+(list-equal? lst1 (cons 1 (cons 2 (cons 3 (cons 4 '())))))
 
 (newline)
 "list?"
 (list? lst1)
 (list? (append lst1 (cons 5 (cons 6 lst5))))
 (list? (cons 0 lst2))
-(list? (cons lst1 5))
+(list? (cons lst2 0))
 (list? (cons 5 lst1))
+(list? (cons lst1 5))
 (list? (cons lst1 (list 5)))
 (list? '())
 (list? (cons 'x '()))
@@ -107,8 +114,9 @@ lst6
 (pair? lst1)
 (pair? (append lst1 (cons 5 (cons 6 lst5))))
 (pair? (cons 0 lst2))
-(pair? (cons lst1 5))
+(pair? (cons lst2 0))
 (pair? (cons 5 lst1))
+(pair? (cons lst1 5))
 (pair? (cons lst1 (list 5)))
 (pair? '())
 (pair? (cons 'x '()))
@@ -122,7 +130,5 @@ lst6
 (cdr '(1 . 2))
 (car '(a))
 (cdr '(a))
-;(car '())
-;(cdr '())
-
-      
+;(car '())  ; not allowed
+;(cdr '())  ; car/cdr are pair procedures
