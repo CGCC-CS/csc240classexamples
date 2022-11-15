@@ -1,5 +1,5 @@
 #lang scheme
-; Project 4 test module
+; Scheme Poject test module
 ; YOU SHOULD NOT MODIFY THIS FILE!  If one of your functions does not work
 ; comment out the call to the test module in your code.
 ; Your code will be tested with a similar module
@@ -13,7 +13,7 @@
 (provide test-eval-poly)
 (provide test-get-poly-fun)
 
-(display "Spring 2022 Test Cases")
+(display "Fall 2022 Test Cases")(newline)
 
 (define test-remove-next-to-last
   (lambda (x)
