@@ -13,7 +13,7 @@ do_some_stuff([_H | T], TResult) :- do_some_stuff(T, TResult).
 favorite_team(cardinals).
 change_team(NewFavorite) :- retractall(favorite_team(_)), assertz(favorite_team(NewFavorite)).
 
-% make_change/6
+% make_change/6 - makes change for any given amount
 make_change(Amount, HalfDollars, Quarters, Dimes, Nickels, Pennies) :-
 	member(HalfDollars, [2,1,0]),
 	member(Quarters, [4,3,2,1,0]),
