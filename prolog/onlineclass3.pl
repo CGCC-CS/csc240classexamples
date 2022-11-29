@@ -2,22 +2,24 @@
 %   - replace numbers with their square
 %   - replace lists & pairs with the atom list
 %   - remove everything else
-do_some_stuff([],[]) :- !.
+
+do_some_stuff([], []) :- !.
 do_some_stuff([H|T], [H2|TResult]) :- number(H), !, H2 is H * H, do_some_stuff(T, TResult).
-do_some_stuff([[_|_] | T] ,[list|TResult]) :- !, do_some_stuff(T, TResult).
-do_some_stuff([_H|T], TResult) :- do_some_stuff(T, TResult).
+do_some_stuff([[_|_] | T], [list|TResult ]) :- !, do_some_stuff(T, TResult).
+do_some_stuff([_H | T], TResult) :- do_some_stuff(T, TResult).
 
+% Using assert & retractall
 :- dynamic favorite_team/1.
-favorite_team(diamondbacks).
-change_team(NewFavorite) :- retractall(favorite_team(_)), 
-                            asserta(favorite_team(NewFavorite)).
-new_favorite_team(NewFavorite) :- asserta(favorite_team(NewFavorite)).
+favorite_team(cardinals).
+change_team(NewFavorite) :- retractall(favorite_team(_)), assertz(favorite_team(NewFavorite)).
 
-change_for_a_dollar(Amount, HalfDollars, Quarters, Dimes, Nickels, Pennies) :-
-	member(Nickels, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]),
-	member(Dimes, [0,1,2,3,4,5,6,7,8,9,10]),
-	member(Quarters, [0,1,2,3,4]),
-	member(HalfDollars, [0,1,2]),
-	SubTotal is ( Amount + (HalfDollars * 50) + (Quarters * 25) + (Dimes * 10 + (Nickels * 5))),
-	SubTotal =< 100,
-	Pennies is 100 - SubTotal.
+% make_change/6
+make_change(Amount, HalfDollars, Quarters, Dimes, Nickels, Pennies) :-
+	member(HalfDollars, [2,1,0]),
+	member(Quarters, [4,3,2,1,0]),
+	member(Dimes, [10,9,8,7,6,5,4,3,2,1,0]),
+	member(Nickels, [20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0]),
+	SubTotal is ( (HalfDollars * 50) + (Quarters * 25) + (Dimes * 10) + (Nickels * 5)),
+	SubTotal =< Amount,
+	Pennies is Amount - SubTotal.
+
