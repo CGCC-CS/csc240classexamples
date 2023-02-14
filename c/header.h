@@ -1,8 +1,10 @@
 #ifndef HEADER_H
 #define HEADER_H
 
+/* Symbolic Constants */
 #define LENGTH 15
 
-int fact(int);
+/* Forward Declarations */
+int fact(int n);
 
 #endif
