@@ -9,13 +9,13 @@ class Shape {
     public:
         Shape(string t="Shape") : type(t) {}  
 
-        // non-virtual method
+        // non-virtual method - type of pointer determines what gets called
         void print() { cout << "SHAPE: I am a shape" << endl; }
 
-        // virtual method 
+        // virtual method - type of the object determines what gets called 
         virtual void printType() { cout << "SHAPE: " << type << endl; }
 
-        // pure virtual method (abstract)
+        // pure virtual method (abstract) - must be overridden in non-abstract child
         virtual int area() = 0;
         virtual int perimeter() = 0;
 
