@@ -19,14 +19,14 @@ class OnlineExample {
         }
 
         // Copy Constructor
-        OnlineExample(const OnlineExample & original) : s("COPY of " + original.s) {
+        OnlineExample(const OnlineExample & original) : s("COPY OF " + original.s) {
             cout << "Copy Constructor for " << original.s << " x=" << original.x << " y=" << original.y << endl;
             x = new int(*original.x);
-            y = new int[10];
+            y = new int [10];
             for (int ii=0;ii<10;ii++) {
                 y[ii]=ii+1;
             }
-            cout << "     New Object " << s << " x=" << x << " y=" << y << endl;
+            cout << "         New Object: " << s << " x=" << x << " y=" << y << endl;
         }
 
         // Destructor
@@ -38,6 +38,7 @@ class OnlineExample {
             y = nullptr;
             s = "";
         }
+
 };
 
 void exampleFunction(const OnlineExample &functionParameterObject1, OnlineExample functionParameterObject2) {
@@ -74,12 +75,13 @@ int main() {
     OnlineExample * heapObj = new OnlineExample(4, 8, "heap object");
 
 
-    cout << "---------- Calling exampleFunction1 ----------" << endl;
+    cout << endl << "---------- Calling exampleFunction1 ----------" << endl;
     exampleFunction(staticObj, stackObj);
     cout << "------- Returned from exampleFunction1 -------" << endl;
-    cout << "---------- Calling exampleFunction2 ----------" << endl;
+    cout << endl << "---------- Calling exampleFunction2 ----------" << endl;
     exampleFunction(staticObj, stackObj);
     cout << "------- Returned from exampleFunction2 -------" << endl;
+    cout << endl;;
 
     // Delete the integer poitners
     delete(intPtr);
