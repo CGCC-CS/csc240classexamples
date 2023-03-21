@@ -8,8 +8,6 @@
 
 using namespace std;
 
-#define BUFFERLEN 100
-
 Term term_from_string(string buffer) {
 
   int coef = 0;
