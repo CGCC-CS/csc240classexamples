@@ -15,7 +15,7 @@
 (caddr lst)
 
 (newline)
-"Higher-order functions"
+"Higher-order Functions"
 
 (newline)
 "apply, map, & filter"
@@ -31,11 +31,25 @@ crazylist
 (map (lambda (x) (not (number? x))) crazylist)
 (filter number? crazylist)
 (filter (lambda (x) (not (number? x))) crazylist)
-"combining filter, map, & apply"
+"combining apply, map, filter"
 (map square (filter number? crazylist))
 (apply + (map square (filter number? crazylist)))
 
+"procedure to remove non-multiples of a number from a list"
+(define remove-non-mults
+  (lambda (lst x)
+    (filter (lambda (n) (= 0 (remainder n x))) lst)))
+(remove-non-mults lst 2)
+(remove-non-mults (filter number? crazylist) 5)
+
 (newline)
+"Reuce"
+(define add-lst
+  (lambda (lst)
+    (if (null? lst)
+        0
+        (+ (car lst) (add-lst (cdr lst))))))
+(add-lst lst)
 (define red
   (lambda (operator base-case lst)
     (if (null? lst)
@@ -50,7 +64,7 @@ lst
 (define halve (lambda (x) (/ x 2)))
 (red (lambda (carval cdrval) (cons (halve carval) cdrval)) '() lst)
 "Double every element in the list"
-(red (lambda (carval cdrval) (cons (* 2 carval) cdrval)) '() lst)
+(red (lambda (carval cdrval) (cons (* 2 carval) cdrval))'() lst)
 "Length of a list"
 (red (lambda (carval cdrval) (+ 1 cdrval)) 0 lst)
 (red (lambda (carval cdrval) (+ 1 cdrval)) 0 '(a b c d e f g h i j k l))
@@ -61,82 +75,19 @@ lst
 (red (lambda (carval cdrval) (append cdrval (list carval))) '() '(a b c d e f g h i j k l))
 
 (newline)
-"Let stuctures"
-(define a 3)
-(define b 5)
-(let
-    ((a 10)
-     (b 11)
-     (c 12))
-  (+ a b c))
-(let
-    ((x (* a 4))
-     (y (square b))
-     (z ((lambda (x) (if (> x 10) 10 x)) (+ a b))))
-  (+ x (- y z)))
-(let
-    ((double (lambda (x) (* x 2))))
-  (double a))
-
-(define double-pi-list
-  (lambda (lst)
-    (let
-        ((double (lambda (x) (* x 2)))
-         (pi 3.14159))
-      (if (null? lst)
-          '()
-          (cons (* pi (double (car lst))) (double-pi-list (cdr lst)))))))
-(double-pi-list lst)
-(double-pi-list (filter number? crazylist))
-
-(let
-    ((a 7)
-     (b (+ a 4))
-     (c (- b 5)))
-  (+ a b c))
-
-(newline)
-"let -> lambda"
-(let ((a 20)
-      (b 10))
-  (+ a b))
-((lambda (a b) (+ a b)) 20 10)
-
-((lambda (m n) (- m n)) 35 17)
-(let
-    ((m 35)
-     (n 17))
-  (- m n))
-
-(newline)
-"Currying"
-(define adder-creator
-  (lambda (x)
-    (lambda (y)
-      (+ x y))))
-(adder-creator 1)
-(define increment (adder-creator 1))
-increment
-(increment 42)
-(adder-creator 10)
-((adder-creator 10) 123)
-(define add10 (adder-creator 10))
-(add10 17)
-(add10 -94)
-
-"function to create polynomial function"
-; f(x) = ax^2 + bx + c
-(define f
-  (lambda (a b c)
-    (lambda (x)
-      (+ (* a x x) (* b x) c))))
-"f(x) = x^2 + x + 1"
-(f 1 1 1)
-((f 1 1 1) 3)
-((f 1 1 1) -2)
-"f(x) = 2x^2 + 3x - 5"
-((f 2 3 -5) 3)
-((f 2 3 -5) -1)
-((f 2 3 -5) 10)
-(map (f 2 3 -5) lst)
+"Reduce2"
+(define red2
+  (lambda (combine operator base-case lst)
+    (if (null? lst)
+        base-case
+        (combine (operator (car lst)) (red2 combine operator base-case (cdr lst))))))
+"Halve every element in the list"
+(red2 cons halve '() lst)
+"Double every element in the list"
+(red2 cons (lambda (x) (* 2 x)) '() lst)
+"length of a list"
+(red2 + (lambda (x) 1) 0 lst)
+(red2 + (lambda (x) 1) 0 '(a b c d e f g h i j k l))
+"Reverse a list"
+(red2 (lambda (carval cdrval) (append cdrval (list carval))) (lambda (x) x) '() lst)
 
