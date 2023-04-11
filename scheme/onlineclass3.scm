@@ -91,3 +91,111 @@ lst
 "Reverse a list"
 (red2 (lambda (carval cdrval) (append cdrval (list carval))) (lambda (x) x) '() lst)
 
+(newline)
+"Let structures"
+(define a 3)
+(define b 5)
+(let
+    ((a 10)
+     (b 11)
+     (c 12))
+  (+ a b c))
+
+(let
+    ((j 4)
+     (k 7)
+     (i 2))
+  (+ j k (* i k) (- (* 3 k) j)))
+ 
+
+(* a 4)
+(square b)
+((lambda (x) (if (> x 10) 10 x)) (+ a b))
+(let
+    ((x (* a 4))
+     (y (square b))
+     (z ((lambda (x) (if (> x 10) 10 x)) (+ a b))))
+  (+ x (- y z)))
+
+(let
+    ((x 7)
+     (double (lambda (x) (* x 2))))
+  (double (+ (double a) (double x))))
+
+"Using a let in a function definiton"
+(define double-pi-list
+  (lambda (lst)
+    (let
+        ((double (lambda (x) (* x 2)))
+         (pi 3.14159))
+      (if (null? lst)
+          '()
+          (cons (* pi (double (car lst))) (double-pi-list (cdr lst)))))))
+(double-pi-list lst)
+(double-pi-list (filter number? crazylist))
+
+(define do-stuff
+  (lambda (x)
+    (let
+        ((half (/ x 2))
+         (twice (* x 2))
+         (times *))
+      (times half twice))))
+(do-stuff 10)
+(do-stuff (/ 3 7))
+
+"Be careful with scope!"
+(let
+    ((a 7)
+     (b (+ a 4))
+     (c (- b 5)))
+  (+ a b c))
+
+(newline)
+"let -> lambda"
+(let
+    ((a 20)
+     (b 10))
+  (+ a b))
+((lambda (a b) (+ a b)) 10 20)
+
+((lambda (m n) (- m n)) 35 17)
+(let
+    ((m 35)
+     (n 17))
+  (- m n))
+
+(newline)
+"Currying"
+(define adder-creator
+  (lambda (x)
+    (lambda (y)
+      (+ x y))))
+"adder-creator 1"
+(adder-creator 1)
+((adder-creator 1) 42)
+(define increment (adder-creator 1))
+(increment 10)
+(increment -17)
+"adder-creator 10"
+(adder-creator 10)
+((adder-creator 10) 42)
+(define add10 (adder-creator 10))
+(add10 10)
+(add10 -17)
+
+"function to create a polynomial function"
+; f(x) = ax^2 + bx + c
+(define f
+  (lambda (a b c)
+    (lambda (x)
+      (+ (* a x x) (* b x) c))))
+"f(x) = x^2 + x + 1"
+(f 1 1 1)
+((f 1 1 1) 3)
+((f 1 1 1) -2)
+"f(x) = 2x^2 + 3x - 5"
+((f 2 3 -5) 3)
+((f 2 3 -5) -1)
+((f 2 3 -5) 10)
+(map (f 2 3 -5) lst)
