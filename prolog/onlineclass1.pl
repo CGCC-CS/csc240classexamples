@@ -29,17 +29,17 @@ population(spain,      46754778).
 population(southkorea, 51638809).
 
 % rules
-recovery_rate(Country, Rate) :- coronavirus(Country, Cases, _, Recoveries),
+recovery_rate(Country, Rate) :- coronavirus(Country, Cases, _, Recoveries), 
                                 Rate is Recoveries / Cases * 100.
 
-mortality(Country, Rate) :- coronavirus(Country, Cases, Deaths, _), 
+mortality(Country, Rate) :- coronavirus(Country, Cases, Deaths, _),
                             Rate is Deaths / Cases * 100.
 
-covid_percent(Country, Percent) :- coronavirus(Country, Cases, _, _), 
+covid_percent(Country, Percent) :- coronavirus(Country, Cases, _, _),
                                    population(Country, Population),
-                                   Percent is Cases / Population * 100.                    
+                                   Percent is Cases / Population * 100.
 
-% same/2 - if two variables should have the same value, use the same name!
+% same/2 - if two variable have the same value, use the same name!
 same(A,A).
 
 % increment/2
