@@ -7,7 +7,7 @@ int square(int x) {
     return x * x;
 }
 
-int main() {
+int main(void) {
   int radius;
   double area;
   printf("Enter the radius: ");

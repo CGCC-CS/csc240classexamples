@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
  
-int main() {
+int main(void) {
    int ii, *ptr, arr[3] = {2, 4, 6};
    char *s, str1[] = "java";
  

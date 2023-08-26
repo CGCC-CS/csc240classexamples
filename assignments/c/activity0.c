@@ -2,7 +2,7 @@
 
 #define LEN 100
 
-int main() {
+int main(void) {
   char name[LEN];
   int ii;
   int k = 0;

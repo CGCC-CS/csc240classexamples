@@ -6,7 +6,7 @@ int seq(int n);
 void double_it(int * n);
 int triple_it(int n);
 
-int main()
+int main(void)
 {
    int n = 1;
    printf("ii    seq(ii)   double_it(n)  triple_it(ii)\n");
