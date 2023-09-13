@@ -8,7 +8,7 @@ typedef struct node {
   struct node * next;  /* pointer to next next node */
 } node_t;
 
-int list_add(node_t ** list, void * data);
+int list_add(node_t ** list, const void * data);
 void * list_remove_first(node_t ** list);
 
 #endif

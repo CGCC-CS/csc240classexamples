@@ -7,7 +7,7 @@
     gcc --std=c11 -pedantic -Wall basiclist.c -DTEST
 */
 
-int list_add(node_t ** list, void * data) {
+int list_add(node_t ** list, const void * data) {
   int ret = 0;
   node_t * newnode = (node_t *) malloc(sizeof(node_t));
   if (newnode == NULL) {
