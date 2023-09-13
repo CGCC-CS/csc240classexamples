@@ -4,7 +4,7 @@
 #define BASICLIST_H
 
 typedef struct node {
-  void * data;         /* pointer to data */
+  const void * data;         /* pointer to data */
   struct node * next;  /* pointer to next next node */
 } node_t;
 
