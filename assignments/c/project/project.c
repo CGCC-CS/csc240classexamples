@@ -40,7 +40,7 @@ void read_terms_from_file(node_t ** term_list) {
     fclose(fp);
 }
 
-int main() {
+int main(void) {
     term_t testterm1 = {1, 'x', 0};
     term_t testterm2 = {2, 'x', 1};
     term_t testterm3 = {3, 'x', 2};

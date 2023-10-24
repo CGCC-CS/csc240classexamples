@@ -19,11 +19,11 @@ int main() {
 
   cout << "x: " << endl << "  ";
   x.print();
-  cout << "  x.doubleNum=" << x.doubleNum() << endl;;
+  cout << "  x.doubleNum=" << x.doubleNum() << endl;
 
   cout << endl << "y: " << endl << "  ";
   y.print();
-  cout << "  y.doubleNum=" << y.doubleNum() << endl;;
+  cout << "  y.doubleNum=" << y.doubleNum() << endl;
 
   return 0;
 }
