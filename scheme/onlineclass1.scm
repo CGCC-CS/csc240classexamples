@@ -12,7 +12,7 @@
 (newline)
 "Simple arithmetic"
 (+ 1 7)
-(* 8 8)
+(* 7 7)
 (+ 1 2 3)
 (+ 42 9 345 2 34 4 2 8 7 6 5 87)
 (* 10000 10000 437843784343 4432432433 2432432 14 3 484324324233 384324322 40 30)
@@ -57,14 +57,15 @@ subject
 (symbol? subject)
 
 (newline)
-"Lambdas - unnamed functions"
+"Lambdas - unamed functions"
 +
+expt
 (lambda (x) (+ x 1))
 ((lambda (x) (+ x 1)) 10)
 ((lambda (x) (+ x 1)) -42)
-((lambda (x) (+ x 1)) (+ 7 8))
 ((lambda (x) (+ x 1)) a)
-((lambda (x) (+ x 1)) (* 7 (- (* 4 6) (* 3  2))))
+((lambda (x) (+ x 1)) (+ 7 8))
+((lambda (x) (+ x 1)) (* 7 (- (* 4 6) (* 2 3))))
 
 (newline)
 "Giving a function a name"
@@ -72,10 +73,11 @@ subject
 increment
 (increment 10)
 (increment -42)
-(increment (+ 7 8))
 (increment a)
-(increment (* 7 (- (* 4 6) (* 3  2))))
-;(increment)  ; error: arity mismatch!
+(increment (+ 7 8))
+(increment (* 7 (- (* 4 6) (* 2 3))))
+;(increment)  ; arity mismatch! - wrong number of parameters
+
 
 (newline)
 "Defining a min function"
@@ -115,16 +117,17 @@ lst2
 (cdr lst)      ; list with first element removed
 (cons 0 lst)   ; add as first element of the list
 
-(cons lst '(e f g h i))
+(cons   lst '(e f g h i))
 (append lst '(e f g h i))
 
 (newline)
-"Accessing indificual elements of a list with car & cdr"
+"Accessing individual elements of a list with car & cdr"
 (car lst)
 (car (cdr lst))
 (car (cdr (cdr lst)))
 (car (cdr (cdr (cdr lst))))
 (cdr (cdr (cdr (cdr lst))))
+
 
 "Shortcuts"
 (car lst)

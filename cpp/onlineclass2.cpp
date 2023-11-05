@@ -20,9 +20,9 @@ class OnlineExample {
 
         // Copy Constructor
         OnlineExample(const OnlineExample & original) : s("COPY OF " + original.s) {
-            cout << "Copy Constructor for " << original.s << " x=" << original.x << " y=" << original.y << endl;
+            cout << "Copy Constructor for " << s << " x=" << original.x << " y=" << original.y << endl;
             x = new int(*original.x);
-            y = new int [10];
+            y = new int[10];
             for (int ii=0;ii<10;ii++) {
                 y[ii]=ii+1;
             }
@@ -38,7 +38,6 @@ class OnlineExample {
             y = nullptr;
             s = "";
         }
-
 };
 
 void exampleFunction(const OnlineExample &functionParameterObject1, OnlineExample functionParameterObject2) {
@@ -67,31 +66,30 @@ int main() {
     for (int ii=0;ii<5;ii++) {
         cout << arrPtr[ii] << " ";
     }
-    cout << endl << endl;
+    cout << endl;
 
-    cout << "------- Start of testing OnlineExample -------" << endl;
+    cout << endl << "------- Start of testing OnlineExample --------" << endl;
     static OnlineExample staticObj(6, 12, "static object");
     OnlineExample stackObj(5, 10, "stack object");
     OnlineExample * heapObj = new OnlineExample(4, 8, "heap object");
 
-
-    cout << endl << "---------- Calling exampleFunction1 ----------" << endl;
+    cout << endl << "---------- Calling exampleFunction 1 ----------" << endl;
     exampleFunction(staticObj, stackObj);
-    cout << "------- Returned from exampleFunction1 -------" << endl;
-    cout << endl << "---------- Calling exampleFunction2 ----------" << endl;
+    cout << "-------- return from exampleFunction 1 --------" << endl;
+    cout << endl << "---------- Calling exampleFunction 2 ----------" << endl;
     exampleFunction(staticObj, stackObj);
-    cout << "------- Returned from exampleFunction2 -------" << endl;
-    cout << endl;;
+    cout << "-------- return from exampleFunction 2 --------" << endl;
+    cout << endl;
 
-    // Delete the integer poitners
+    // Delete the integer pointers
     delete(intPtr);
     delete(*intPtrPtr);
     delete(intPtrPtr);
     delete[](arrPtr);
 
-    // Delete the object pointer
+    // Delete the OnlineExample pointer
     delete(heapObj);
-    cout << "-------- End of testing OnlineExample --------" << endl;
 
+    cout << "-------- End of testing OnlineExample -------" << endl;
     return 0;
 }

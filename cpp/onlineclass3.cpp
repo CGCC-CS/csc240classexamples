@@ -4,22 +4,25 @@
 
 using namespace std;
 
-
 int main() {
 
-    vector<int> vec;
+    vector<int> vec;     // vector of ints
+    vector<string> strVec = {"Hello", "World"};   // vector of string
+    strVec.push_back("CGCC");
+    strVec.push_back("CSC240");
 
-    vector<string> strVec = {"Hello", "World"};
 
     cout << "size of vec = " << vec.size() << endl;
-    cout << "size of vec = " << strVec.size() << endl;
+    cout << "size of strVec = " << strVec.size() << endl;
 
-    for(int ii=0;ii<8;ii++) {
-        vec.push_back((ii+1)*3);
+
+    for (int ii=0;ii<8;ii++) {
+        vec.push_back(ii+1);
     }
+    cout << "After push_back loop, ";
     cout << "size of vec = " << vec.size() << endl;
 
-    // for-each loop
+    // for-each loop or ranged-for loop
     cout << "vec = ";
     for (auto const &ii : vec) {
         cout << ii << " ";
@@ -27,13 +30,11 @@ int main() {
     cout << endl;
 
     // iterator
-    cout << "strVec";
-    for (vector<string>::iterator ii=strVec.begin(); ii != strVec.end(); ++ii) {
+    cout << "strVec = ";
+    for(vector<string>::iterator ii=strVec.begin(); ii != strVec.end(); ++ii) {
         cout << (*ii) << " ";
     }
     cout << endl;
-
-
 
     return 0;
 }
