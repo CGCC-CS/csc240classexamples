@@ -113,7 +113,7 @@
            (f2 (x poly2))
            (f3 (x poly3)))
         (begin
-          (display "Question 6a: get-poly-fun: ")
+          (display "Question 6b: get-poly-fun: ")
           (write (x poly1))(display " & ")
           (write (x poly2))
           (newline)
