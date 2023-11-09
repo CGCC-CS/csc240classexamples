@@ -13,7 +13,7 @@
 (provide test-eval-poly)
 (provide test-get-poly-fun)
 
-(display "Spring 2023 Test Cases")(newline)
+(display "Fall 2023 Test Cases")(newline)
 
 (define test-remove-next-to-last
   (lambda (x)
@@ -113,7 +113,7 @@
            (f2 (x poly2))
            (f3 (x poly3)))
         (begin
-          (display "Question 6b: get-poly-fun: ")
+          (display "Question 6a: get-poly-fun: ")
           (write (x poly1))(display " & ")
           (write (x poly2))
           (newline)
