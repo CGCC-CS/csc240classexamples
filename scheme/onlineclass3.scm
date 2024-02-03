@@ -31,7 +31,16 @@ crazylist
 (map (lambda (x) (not (number? x))) crazylist)
 (filter number? crazylist)
 (filter (lambda (x) (not (number? x))) crazylist)
-"combining apply, map, filter"
+
+(newline)
+"More map & filter examples"
+(map (lambda (x) (* x x)) '(1 2 3 4 5))
+(map (lambda (x) (+ 6 x)) '(1 2 3 4 5))
+(map symbol->string '(a b c d e f g))
+(map even? '(1 2 3 4 5 6 7 8 9))
+(filter even? '(1 2 3 4 5 6 7 8 9))
+
+"combining apply, map, & filter"
 (map square (filter number? crazylist))
 (apply + (map square (filter number? crazylist)))
 
@@ -43,36 +52,35 @@ crazylist
 (remove-non-mults (filter number? crazylist) 5)
 
 (newline)
-"Reuce"
+"Reduce"
 (define add-lst
   (lambda (lst)
     (if (null? lst)
         0
         (+ (car lst) (add-lst (cdr lst))))))
 (add-lst lst)
+
 (define red
   (lambda (operator base-case lst)
     (if (null? lst)
         base-case
         (operator (car lst) (red operator base-case (cdr lst))))))
-lst
-"Sum the list"
+red
+"Sum a list"
 (red + 0 lst)
-"Multiply the list"
+"Multiply a list"
 (red * 1 lst)
-"Halve every element in the list"
+"Halve every element in a list"
 (define halve (lambda (x) (/ x 2)))
 (red (lambda (carval cdrval) (cons (halve carval) cdrval)) '() lst)
-"Double every element in the list"
-(red (lambda (carval cdrval) (cons (* 2 carval) cdrval))'() lst)
 "Length of a list"
 (red (lambda (carval cdrval) (+ 1 cdrval)) 0 lst)
-(red (lambda (carval cdrval) (+ 1 cdrval)) 0 '(a b c d e f g h i j k l))
+(red (lambda (carval cdrval) (+ 1 cdrval)) 0 '(a b c d e f g h i j k l m))
 "Get all even numbers"
 (red (lambda (carval cdrval) (if (even? carval) (cons carval cdrval) cdrval)) '() lst)
 "Reverse a list"
 (red (lambda (carval cdrval) (append cdrval (list carval))) '() lst)
-(red (lambda (carval cdrval) (append cdrval (list carval))) '() '(a b c d e f g h i j k l))
+(red (lambda (carval cdrval) (append cdrval (list carval))) '() '(a b c d e f g h i j k l m))
 
 (newline)
 "Reduce2"
@@ -81,13 +89,11 @@ lst
     (if (null? lst)
         base-case
         (combine (operator (car lst)) (red2 combine operator base-case (cdr lst))))))
-"Halve every element in the list"
+"Halve every element in a list"
 (red2 cons halve '() lst)
-"Double every element in the list"
-(red2 cons (lambda (x) (* 2 x)) '() lst)
-"length of a list"
+"Length of a list"
 (red2 + (lambda (x) 1) 0 lst)
-(red2 + (lambda (x) 1) 0 '(a b c d e f g h i j k l))
+(red2 + (lambda (x) 1) 0 '(a b c d e f g h i j k l m))
 "Reverse a list"
 (red2 (lambda (carval cdrval) (append cdrval (list carval))) (lambda (x) x) '() lst)
 
@@ -95,6 +101,7 @@ lst
 "Let structures"
 (define a 3)
 (define b 5)
+
 (let
     ((a 10)
      (b 11)
@@ -106,16 +113,16 @@ lst
      (k 7)
      (i 2))
   (+ j k (* i k) (- (* 3 k) j)))
- 
 
 (* a 4)
 (square b)
 ((lambda (x) (if (> x 10) 10 x)) (+ a b))
+
 (let
     ((x (* a 4))
      (y (square b))
      (z ((lambda (x) (if (> x 10) 10 x)) (+ a b))))
-  (+ x (- y z)))
+  (+ x (- y x)))
 
 (let
     ((x 7)
@@ -143,6 +150,7 @@ lst
       (times half twice))))
 (do-stuff 10)
 (do-stuff (/ 3 7))
+(map do-stuff (map halve (filter number? crazylist)))
 
 "Be careful with scope!"
 (let
@@ -157,7 +165,7 @@ lst
     ((a 20)
      (b 10))
   (+ a b))
-((lambda (a b) (+ a b)) 10 20)
+((lambda (a b) (+ a b)) 20 10)
 
 ((lambda (m n) (- m n)) 35 17)
 (let
@@ -167,13 +175,20 @@ lst
 
 (newline)
 "Currying"
+(define return-1
+  (lambda (x)
+    1))
+(return-1 1)
+(lambda (y) (+ 1 y))
+((lambda (y) (+ 1 y)) 7)
+
 (define adder-creator
   (lambda (x)
-    (lambda (y)
-      (+ x y))))
+    (lambda (y) (+ x y))))
 "adder-creator 1"
 (adder-creator 1)
 ((adder-creator 1) 42)
+((adder-creator 5) 42)
 (define increment (adder-creator 1))
 (increment 10)
 (increment -17)
@@ -195,7 +210,10 @@ lst
 ((f 1 1 1) 3)
 ((f 1 1 1) -2)
 "f(x) = 2x^2 + 3x - 5"
+(f 2 3 -5)
+((f 2 3 -5) 1)
 ((f 2 3 -5) 3)
-((f 2 3 -5) -1)
+((f 2 3 -5) -2)
 ((f 2 3 -5) 10)
 (map (f 2 3 -5) lst)
+(map (f 2 3 -5) (filter number? crazylist))

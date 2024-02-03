@@ -13,7 +13,7 @@
 (provide test-eval-poly)
 (provide test-get-poly-fun)
 
-(display "Spring 2023 Test Cases")(newline)
+(display "Fall 2023 Test Cases")(newline)
 
 (define test-remove-next-to-last
   (lambda (x)
