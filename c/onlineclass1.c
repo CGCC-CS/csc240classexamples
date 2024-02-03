@@ -114,7 +114,7 @@ int main(void) {
     printf("sizeof(num) = %lu\n", sizeof(num));  /* num is an int */
     printf("\n");
 
-    /* Rediculously quick intro to pointers */
+    /* Ridiculously quick intro to pointers */
     int var = 10;  /* variable */
     int * ptr;     /* pointer to int - also variable */
 

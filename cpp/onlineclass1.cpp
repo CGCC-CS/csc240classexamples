@@ -26,7 +26,7 @@ class Rectangle : public Shape {
         int length;
         int width;
     public:
-        Rectangle(int l, int w, string t="Rectange")
+        Rectangle(int l, int w, string t="Rectangle")
             : Shape(t), length(l), width(w) {}
 
         int area() override { return length * width; }
@@ -73,7 +73,7 @@ int main() {
     r2->printType();
     cout << "area=" << r2->area() << " perimeter=" << r2->perimeter() << endl;
 
-    cout << endl << "Shape pointer sPtr to rectantle r2:" << endl;
+    cout << endl << "Shape pointer sPtr to rectangle r2:" << endl;
     sPtr->print();
     sPtr->printType();
     cout << "area=" << sPtr->area() << " perimeter=" << sPtr->perimeter() << endl;
