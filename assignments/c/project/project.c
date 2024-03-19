@@ -16,7 +16,7 @@ term_t * string_to_term(char * buff) {
     return ret;
 }
 
-/* Reads a text file and addds terms to a basiclist */
+/* Reads a text file and adds terms to a basiclist */
 void read_terms_from_file(node_t ** term_list) {
 
     FILE *fp;
