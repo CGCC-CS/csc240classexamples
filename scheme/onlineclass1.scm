@@ -1,13 +1,17 @@
 #lang scheme
 
-; Scheme comments start with a semi-colon
+; comments start with ;
 
-(newline)
 "Literals"
 3     ; integer literal
 #b101 ; binary literal
 42/5  ; fraction literal
 3+2i  ; imaginary literal
+
+(newline)
+"strings, number evaluate to themselves"
+10
+3.14
 
 (newline)
 "Simple arithmetic"
@@ -22,6 +26,16 @@
 (expt 25 (/ 1 2))
 
 (newline)
+"symbols"
+'y
+'thisisasymbol
+
+(newline)
+"a ' stops evaluation"
+(+ 3 4)
+'(+ 3 4)
+
+(newline)
 "Atoms"
 1           ; integer
 3.14159     ; decimal
@@ -29,12 +43,15 @@
 'Prolog     ; symbol
 227/19      ; fraction
 
-(newline)
 "Defining names"
 (define a 10)             ; associate the name a to the integer 10
+(define x 10)
+(define y 17)
 (define class "CSC240")   ; associate the name class to the string "CSC240"
 (define subject 'Scheme)  ; associate the name subject to the symbol 'Scheme
 a
+x
+y
 class
 subject
 
@@ -58,8 +75,6 @@ subject
 
 (newline)
 "Lambdas - unamed functions"
-+
-expt
 (lambda (x) (+ x 1))
 ((lambda (x) (+ x 1)) 10)
 ((lambda (x) (+ x 1)) -42)
@@ -78,9 +93,8 @@ increment
 (increment (* 7 (- (* 4 6) (* 2 3))))
 ;(increment)  ; arity mismatch! - wrong number of parameters
 
-
 (newline)
-"Defining a min function"
+"Define a min function"
 (define min
   (lambda (a b)
     (if (> b a)
@@ -101,8 +115,8 @@ increment
 (list a 1 'hello "World" (* 2 7) / 30)
 '(a 1 'hello "World" (* 2 7) / 30)
 (quote (a 1 'hello "World" (* 2 7) / 30))
-(list a 'b (quote c))  ; (list a b c) gives an error, so b & c must be quoted
-(quote (a b c))
+;(list a 'b (quote c))  ; (list a b c) gives an error, so b & c must be quoted
+;(quote (a b c))
 
 (newline)
 "Define a list (associate a name to a list)"
@@ -117,7 +131,7 @@ lst2
 (cdr lst)      ; list with first element removed
 (cons 0 lst)   ; add as first element of the list
 
-(cons   lst '(e f g h i))
+(cons lst '(e f g h i))
 (append lst '(e f g h i))
 
 (newline)
@@ -126,10 +140,8 @@ lst2
 (car (cdr lst))
 (car (cdr (cdr lst)))
 (car (cdr (cdr (cdr lst))))
-(cdr (cdr (cdr (cdr lst))))
-
-
 "Shortcuts"
+
 (car lst)
 (cadr lst)
 (caddr lst)
@@ -157,4 +169,4 @@ procs
 (caddr procs)  ; list
 ((car procs) 25)
 ((cadr procs) 17)
-((caddr procs) 1 2 (/ 6 2) a 'b 'c "Scheme")
+((caddr procs) 1 2 (/ 6 2) a 'b 'c 'Little "Schemer")
