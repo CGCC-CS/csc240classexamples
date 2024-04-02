@@ -3,16 +3,8 @@
 (define lst (list 1 2 3 4 5))
 
 (define square
-  (lambda (x)
+  (λ (x)        ; ctrl-\ creates a λ character, equivalent to "lambda"
     (* x x)))
-
-"Shortcuts for car/cdr"
-(car lst)
-(cdr lst)
-(car (cdr lst))
-(cadr lst)
-(car (cdr (cdr lst)))
-(caddr lst)
 
 (newline)
 "Higher-order Functions"
@@ -24,20 +16,15 @@ lst
 (apply * lst)
 (map square lst)
 (map (lambda (x) (+ x 3)) lst)
-(map (lambda (x) (/ x 2)) lst)
+(map (lambda (x) (if (= 0 (remainder x 2)) (* x 10) x)) lst)
 (define crazylist (list 1 'a '(2 3 4) 5 'six (+ 3 4) "Eight" 9 (/ 40 4) square))
+(map symbol->string '(a b c d e f g))
 crazylist
-(map number? crazylist)
 (map (lambda (x) (not (number? x))) crazylist)
+(map even? '(1 2 3 4 5 6 7 8 9))
+(map number? crazylist)
 (filter number? crazylist)
 (filter (lambda (x) (not (number? x))) crazylist)
-
-(newline)
-"More map & filter examples"
-(map (lambda (x) (* x x)) '(1 2 3 4 5))
-(map (lambda (x) (+ 6 x)) '(1 2 3 4 5))
-(map symbol->string '(a b c d e f g))
-(map even? '(1 2 3 4 5 6 7 8 9))
 (filter even? '(1 2 3 4 5 6 7 8 9))
 
 "combining apply, map, & filter"
@@ -47,8 +34,9 @@ crazylist
 "procedure to remove non-multiples of a number from a list"
 (define remove-non-mults
   (lambda (lst x)
-    (filter (lambda (n) (= 0 (remainder n x))) lst)))
+    (filter (lambda (n) (= (remainder n x) 0)) lst)))
 (remove-non-mults lst 2)
+(remove-non-mults lst 3)
 (remove-non-mults (filter number? crazylist) 5)
 
 (newline)
@@ -94,8 +82,9 @@ red
 "Length of a list"
 (red2 + (lambda (x) 1) 0 lst)
 (red2 + (lambda (x) 1) 0 '(a b c d e f g h i j k l m))
-"Reverse a list"
+"Reversing a list"
 (red2 (lambda (carval cdrval) (append cdrval (list carval))) (lambda (x) x) '() lst)
+
 
 (newline)
 "Let structures"
@@ -122,14 +111,15 @@ red
     ((x (* a 4))
      (y (square b))
      (z ((lambda (x) (if (> x 10) 10 x)) (+ a b))))
-  (+ x (- y x)))
+  (+ x (- y z)))
 
 (let
     ((x 7)
      (double (lambda (x) (* x 2))))
   (double (+ (double a) (double x))))
 
-"Using a let in a function definiton"
+(newline)
+"Using a let in a procedure definition"
 (define double-pi-list
   (lambda (lst)
     (let
@@ -178,7 +168,8 @@ red
 (define return-1
   (lambda (x)
     1))
-(return-1 1)
+(return-1 7)
+(return-1 "Hello")
 (lambda (y) (+ 1 y))
 ((lambda (y) (+ 1 y)) 7)
 
@@ -187,6 +178,7 @@ red
     (lambda (y) (+ x y))))
 "adder-creator 1"
 (adder-creator 1)
+((adder-creator 1) 7)
 ((adder-creator 1) 42)
 ((adder-creator 5) 42)
 (define increment (adder-creator 1))
@@ -194,10 +186,11 @@ red
 (increment -17)
 "adder-creator 10"
 (adder-creator 10)
+((adder-creator 10) 7)
 ((adder-creator 10) 42)
-(define add10 (adder-creator 10))
-(add10 10)
-(add10 -17)
+(define add-10 (adder-creator 10))
+(add-10 10)
+(add-10 -17)
 
 "function to create a polynomial function"
 ; f(x) = ax^2 + bx + c
@@ -209,6 +202,7 @@ red
 (f 1 1 1)
 ((f 1 1 1) 3)
 ((f 1 1 1) -2)
+
 "f(x) = 2x^2 + 3x - 5"
 (f 2 3 -5)
 ((f 2 3 -5) 1)
@@ -217,3 +211,4 @@ red
 ((f 2 3 -5) 10)
 (map (f 2 3 -5) lst)
 (map (f 2 3 -5) (filter number? crazylist))
+  
