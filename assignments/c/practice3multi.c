@@ -1,4 +1,4 @@
-/* Activity 3 - create a header file */
+/* Practice 3, part 1 - Multi-file C Programs */
 #include<stdio.h>
 
 #define PI 3.14159
