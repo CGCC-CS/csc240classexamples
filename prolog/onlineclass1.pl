@@ -32,15 +32,25 @@ population(southkorea, 51638809).
 recovery_rate(Country, Rate) :- coronavirus(Country, Cases, _, Recoveries),
                                 Rate is Recoveries / Cases * 100.
 
-mortality(Country, Rate) :- coronavirus(Country, Cases, Deaths, _), 
-                            Rate is Deaths / Cases * 100.
+mortality(Country, Rate) :- coronavirus(Country, Cases, Deaths, _),
+                            Rate is Deaths/ Cases * 100.
 
 covid_percent(Country, Percent) :- coronavirus(Country, Cases, _, _), 
-                                   population(Country, Population), 
+                                   population(Country, Population),
                                    Percent is Cases / Population * 100.
 
 % same/2 - if two variable have the same value, use the same name!
 same(A,A).
+
+% Example:
+% ?- same(a,b).
+% false.
+% 
+% ?- same(a,a).
+% true.
+% 
+% ?- A is 4 / 2, B is 1 + 1, same(A,B).
+% A = B, B = 2.
 
 % increment/2
 increment(X, X1) :- X1 is X + 1.
@@ -52,4 +62,27 @@ is_seven(7).
 is_integer(X) :- member(X, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]).
 
 % equation/3 - A + B = C
-equation(A,B,C) :- is_integer(A), is_integer(B), C is A + B.
+equation(A, B, C) :- is_integer(A), is_integer(B), C is A + B.
+
+% ?- equation(3,4,X).
+% X = 7 .
+% 
+% ?- equation(3,9,7).
+% false.
+% 
+% ?- equation(7,X,13).
+% X = 6 .
+% 
+% ?- equation(Y,4,9).
+% Y = 5 .
+% 
+% ?- equation(X,Y,3).
+% X = 0,
+% Y = 3 ;
+% X = 1,
+% Y = 2 ;
+% X = 2,
+% Y = 1 ;
+% X = 3,
+% Y = 0 ;
+% false.

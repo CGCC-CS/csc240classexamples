@@ -12,3 +12,4 @@ show(for_all_mankind, 2019, 7.9).
 show(shadow_and_bone, 2019, 7.7).
 show(the_mandalorian, 2019, 8.8).
 show(loki, 2021, 8.3).
+show(mr_robot, 2015, 8.6).
