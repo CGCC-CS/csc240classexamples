@@ -9,7 +9,8 @@ int array_max(int a[], int len);
 int letter_count(char a[], int len);
 void printThem(int count);
 
-/* Define struct */
+/* Define practice1_t structure below */
+
 int main(void) {
   int nums[11] = {1, 3, 5, 7, 9, 11, 10, 8, 6, 4, 2};
   char str[] = "CSC240 Fall 2019";
