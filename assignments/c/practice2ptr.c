@@ -22,11 +22,11 @@ int * makearray(int n) {
 }
 
 int main (void) {
-  printf("Question #2 - array_to_ptr:\n");
+  printf("Question #3B - array_to_ptr:\n");
   array_to_ptr();   
   printf("\n------------------------------------\n\n");
 
-  printf("Question #3 - contains:\n");
+  printf("Question #3C - contains:\n");
   printf("Test #1: ");
   if ( contains("Hello", 'e') == 1) {
     printf("The string \"Hello\" contains the character 'e'\n");
@@ -43,7 +43,7 @@ int main (void) {
   }
   printf("\n------------------------------------\n\n");
 
-  printf("Question #4: - makearray:\n");
+  printf("Question #3D: - makearray:\n");
   int * arr = makearray(10);
   for (int ii=0;ii<10;ii++) {
     printf("%d ", *(arr+ii));
