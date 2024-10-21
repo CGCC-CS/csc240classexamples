@@ -1,6 +1,6 @@
 #lang scheme
 
-; comments start with ;
+; comment start with a ;
 
 "Literals"
 3     ; integer literal
@@ -8,12 +8,14 @@
 42/5  ; fraction literal
 3+2i  ; imaginary literal
 
-(newline)
-"strings, number evaluate to themselves"
+"Strings, numbers and other literals evaluate to themselves"
 10
-3.14
+3.4
 
-(newline)
+"Scheme evaluates forms"
+(+ 3 4)
+
+(newline) ; this is just to clean up output, normally you do not need this
 "Simple arithmetic"
 (+ 1 7)
 (* 7 7)
@@ -26,16 +28,6 @@
 (expt 25 (/ 1 2))
 
 (newline)
-"symbols"
-'y
-'thisisasymbol
-
-(newline)
-"a ' stops evaluation"
-(+ 3 4)
-'(+ 3 4)
-
-(newline)
 "Atoms"
 1           ; integer
 3.14159     ; decimal
@@ -43,17 +35,49 @@
 'Prolog     ; symbol
 227/19      ; fraction
 
-"Defining names"
-(define a 10)             ; associate the name a to the integer 10
+(newline)
+"Symbols"
+'y
+'thisisasymbol
+'(+ 3 4)    ; the ' tells Scheme not to evaluate the form
+
+(newline) 
+"'define' associates a name with a value"
 (define x 10)
+x
+
+(define a 10)             ; associate the name a to the integer 10
 (define y 17)
 (define class "CSC240")   ; associate the name class to the string "CSC240"
 (define subject 'Scheme)  ; associate the name subject to the symbol 'Scheme
+(* 5 x)
 a
-x
 y
 class
 subject
+"Preventing evaluation of a defined name with a quote"
+'x     ; the ' (quote) tells Scheme not to evaluate the form
+
+(newline)
+"(+ 10 x) vs (lambda (x) (+ 10 x))"
+(+ 10 x)                    ; Scheme form: evaluation 10 + x (x also must be evaluated)
+(lambda (x) (+ 10 x))       ; lambda: evaulates to a function that adds 10 to the parameters
+((lambda (x) (+ 10 x))  7)  ; Scheme form: apply function to parameter 7
+
+"Lambdas - unamed functions"
+(lambda (x) (+ x 1))
+((lambda (x) (+ x 1)) 10)
+((lambda (x) (+ x 1)) -42)
+((lambda (x) (+ x 1)) a)
+((lambda (x) (+ x 1)) (+ 7 8))
+((lambda (x) (+ x 1)) (* 7 (- (* 4 6) (* 2 3))))
+
+(newline)
+"defining a function"
+(define add-10              ; Give the function a name
+  (lambda (x)
+    (+ 10 x)))
+(add-10 8)
 
 (newline)
 "Predicates"
@@ -72,15 +96,6 @@ subject
 (symbol? a)
 (symbol? class)
 (symbol? subject)
-
-(newline)
-"Lambdas - unamed functions"
-(lambda (x) (+ x 1))
-((lambda (x) (+ x 1)) 10)
-((lambda (x) (+ x 1)) -42)
-((lambda (x) (+ x 1)) a)
-((lambda (x) (+ x 1)) (+ 7 8))
-((lambda (x) (+ x 1)) (* 7 (- (* 4 6) (* 2 3))))
 
 (newline)
 "Giving a function a name"
@@ -111,14 +126,6 @@ increment
 (quote (1 2 3 4))
 
 (newline)
-"list vs quote"
-(list a 1 'hello "World" (* 2 7) / 30)
-'(a 1 'hello "World" (* 2 7) / 30)
-(quote (a 1 'hello "World" (* 2 7) / 30))
-;(list a 'b (quote c))  ; (list a b c) gives an error, so b & c must be quoted
-;(quote (a b c))
-
-(newline)
 "Define a list (associate a name to a list)"
 (define lst '(a b c d))
 (define lst2 (list a 'b 'c (quote d)))
@@ -127,6 +134,7 @@ lst2
 
 (newline)
 "List primitives"
+lst
 (car lst)      ; first element in the list
 (cdr lst)      ; list with first element removed
 (cons 0 lst)   ; add as first element of the list
@@ -140,8 +148,8 @@ lst2
 (car (cdr lst))
 (car (cdr (cdr lst)))
 (car (cdr (cdr (cdr lst))))
-"Shortcuts"
 
+"Shortcuts"
 (car lst)
 (cadr lst)
 (caddr lst)
