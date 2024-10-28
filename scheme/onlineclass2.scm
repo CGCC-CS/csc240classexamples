@@ -1,20 +1,24 @@
 #lang scheme
 
-(- 4)
-(- -4)
+"Code vs data"
+(+ 2 3)      ; Scheme form to be evaluated
+'(+ 2 3)     ; Scheme list, not evaluated due to the quote
 null
 
-(define x 3)
-x
+(define x 10)
 
 (newline)
-"Quoting"
-(+ x 1)
-(quote (+ x 1))
-'(+ x 1)
-(list + x 1)
-(list (+ x 1))
-
+"What is lambda?"
++
+car
+(lambda (x) (+ x 1))      ; evaluates to a procedure with no name
+((lambda (x) (+ x 1)) 3)  ; use the lambda form as the operator
+(define increment         ; define gives a name              
+  (lambda (x)
+    (+ x 1)))
+increment
+(increment 10)
+((λ (x) (* x x)) 5)       ; Ctrl-\ to get a lambda character (λ)
 
 (newline)
 "Defining lists"
@@ -61,10 +65,10 @@ lst6
 ;(add-n-to-list 10 3) ; first parameter has to be a list
 
 (newline)
-; A list procedure that returns single value
+; A list procedure that returns a single value
 "Sum up a list"
 (define sum-list
-  (lambda (lst)
+  (λ (lst)
     (if (null? lst)
         0
         (+ (car lst) (sum-list (cdr lst))))))
@@ -74,10 +78,10 @@ lst6
 (sum-list (add-n-to-list lst1 12))
 (+ (sum-list lst6)
    (sum-list (add-n-to-list (cons 4 lst1) 6))
-   (* 5 (length lst3)))
+   (* 5 (length lst3)))        
 
 (newline)
-; A list procdedure thats returns a differently sized list
+; A list procedure that returns a differently sized list
 "Remove the odd numbers from a list"
 (define odd?
   (lambda (x)
@@ -86,6 +90,7 @@ lst6
 (odd? -4)
 (odd? 17)
 (odd? 42)
+
 (define remove-odds
   (lambda (lst)
     (cond
@@ -173,6 +178,4 @@ lst1
         '()
         (cons (* (caar pr) (cdr pr)) (multiply-by (cons (cdar pr) (cdr pr)))))))
 (multiply-by '((7 12 9 3) . 4))
-
-
 
