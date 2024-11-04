@@ -6,8 +6,9 @@
   (λ (x)        ; ctrl-\ creates a λ character, equivalent to "lambda"
     (* x x)))
 
-(newline)
-"Higher-order Functions"
+(define crazylist (list 1 'a '(2 3 4) 5 'six (+ 3 4) "Eight" 9 (/ 40 4) square))
+
+"Higher-order functions"
 
 (newline)
 "apply, map, & filter"
@@ -16,28 +17,28 @@ lst
 (apply * lst)
 (map square lst)
 (map (lambda (x) (+ x 3)) lst)
-(map (lambda (x) (if (= 0 (remainder x 2)) (* x 10) x)) lst)
-(define crazylist (list 1 'a '(2 3 4) 5 'six (+ 3 4) "Eight" 9 (/ 40 4) square))
+(map (lambda (x) (= 0 (remainder x 2))) lst)
+(map (lambda (x) (if (= 0 (remainder x 2)) x (* x 2))) lst)
 (map symbol->string '(a b c d e f g))
 crazylist
-(map (lambda (x) (not (number? x))) crazylist)
-(map even? '(1 2 3 4 5 6 7 8 9))
 (map number? crazylist)
+(map (lambda (x) (not (number? x))) crazylist)
+(map even? '(1 2 3 4 5 6 7 8 9 10))
 (filter number? crazylist)
 (filter (lambda (x) (not (number? x))) crazylist)
-(filter even? '(1 2 3 4 5 6 7 8 9))
+(filter even? '(1 2 3 4 5 6 7 8 9 10))
 
 "combining apply, map, & filter"
 (map square (filter number? crazylist))
 (apply + (map square (filter number? crazylist)))
 
 "procedure to remove non-multiples of a number from a list"
-(define remove-non-mults
+(define remove-non-multiples
   (lambda (lst x)
-    (filter (lambda (n) (= (remainder n x) 0)) lst)))
-(remove-non-mults lst 2)
-(remove-non-mults lst 3)
-(remove-non-mults (filter number? crazylist) 5)
+    (filter (lambda (n) (> (remainder n x) 0)) lst)))
+(remove-non-multiples lst 2)
+(remove-non-multiples lst 3)
+(remove-non-multiples (filter number? crazylist) 5)
 
 (newline)
 "Reduce"
@@ -85,7 +86,6 @@ red
 "Reversing a list"
 (red2 (lambda (carval cdrval) (append cdrval (list carval))) (lambda (x) x) '() lst)
 
-
 (newline)
 "Let structures"
 (define a 3)
@@ -93,8 +93,8 @@ red
 
 (let
     ((a 10)
-     (b 11)
-     (c 12))
+    (b 11)
+    (c 12))
   (+ a b c))
 
 (let
@@ -142,6 +142,7 @@ red
 (do-stuff (/ 3 7))
 (map do-stuff (map halve (filter number? crazylist)))
 
+(newline)
 "Be careful with scope!"
 (let
     ((a 7)
@@ -173,10 +174,10 @@ red
 (lambda (y) (+ 1 y))
 ((lambda (y) (+ 1 y)) 7)
 
+"adder-creator 1"
 (define adder-creator
   (lambda (x)
     (lambda (y) (+ x y))))
-"adder-creator 1"
 (adder-creator 1)
 ((adder-creator 1) 7)
 ((adder-creator 1) 42)
@@ -211,4 +212,3 @@ red
 ((f 2 3 -5) 10)
 (map (f 2 3 -5) lst)
 (map (f 2 3 -5) (filter number? crazylist))
-  
