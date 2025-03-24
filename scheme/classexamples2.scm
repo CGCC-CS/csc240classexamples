@@ -1,8 +1,9 @@
 #lang scheme
 
 "Code vs data"
-(+ 2 3)      ; Scheme form to be evaluated
-'(+ 2 3)     ; Scheme list, not evaluated due to the quote
+(+ 2 3)        ; Scheme form to be evaluated
+'(+ 2 3)       ; Scheme list, not evaluated due to the quote
+'(+ 2 (+ 3 4)) ; Also true for nested S-expressions
 null
 
 (define x 10)
@@ -57,7 +58,7 @@ lst6
 (define add-n-to-list
   (lambda (lst n)
     (if (null? lst)
-        '()
+        '()  ; this is our base case - an empty list
         (cons (+ n (car lst)) (add-n-to-list (cdr lst) n)))))
 (add-n-to-list lst1 3)
 (add-n-to-list lst6 -10)
@@ -72,6 +73,7 @@ lst6
     (if (null? lst)
         0
         (+ (car lst) (sum-list (cdr lst))))))
+(sum-list '(1 2))
 (sum-list lst1)
 (sum-list lst6)
 (sum-list (cons 7 lst1))
@@ -119,6 +121,7 @@ lst1
 (list-equal? lst1 '(1 2 3 4))
 (list-equal? lst1 '(4 3 2 1))
 (list-equal? lst1 (cons 1 (cons 2 (cons 3 (cons 4 '())))))
+(list-equal? '((1 2) 3) '((1 2) 3))
 
 (newline)
 "What is a list?"
@@ -131,6 +134,15 @@ lst1
 (list? '())
 (list? (cons 'x '()))
 (list? (cons 'x 'y))
+
+(newline)
+"What's goingon here?)"
+(define proper (list 1 2))
+(define improper (cons 1 2))
+(list? proper)
+(list? improper)
+(pair? proper) 
+(pair? improper)
 
 (newline)
 "Pairs - (x . y)"
@@ -172,6 +184,7 @@ lst1
 (raise-to-power '(4 . 2))
 (raise-to-power '(7 . 7))
 
+; Multiply each element of a list (car pr) by a number (cdr pr)
 (define multiply-by
   (lambda (pr)
     (if (null? (car pr))
