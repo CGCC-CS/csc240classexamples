@@ -1,17 +1,22 @@
 #lang scheme
 
-(define lst (list 1 2 3 4 5))
-
 (define square
   (λ (x)        ; ctrl-\ creates a λ character, equivalent to "lambda"
     (* x x)))
 
+; Structure of an if statement
+;  (if (condition) true-form false-form)
+(define ReLU
+  (lambda (x)
+    (if (< x 0)  ; check if x is less than 0
+        0        ; if true, return 0
+        1)))     ; else return 1
+
+(define lst (list 1 2 3 4 5))
 (define crazylist (list 1 'a '(2 3 4) 5 'six (+ 3 4) "Eight" 9 (/ 40 4) square))
 
-"Higher-order functions"
-
-(newline)
-"apply, map, & filter"
+"Higher-order Functions"
+"apply, map, filter"
 lst
 (apply + lst)
 (apply * lst)
@@ -23,10 +28,10 @@ lst
 crazylist
 (map number? crazylist)
 (map (lambda (x) (not (number? x))) crazylist)
-(map even? '(1 2 3 4 5 6 7 8 9 10))
+(map even? (list 1 2 3 4 5 6 7 8 9 10))
 (filter number? crazylist)
 (filter (lambda (x) (not (number? x))) crazylist)
-(filter even? '(1 2 3 4 5 6 7 8 9 10))
+(filter even? (list 1 2 3 4 5 6 7 8 9 10))
 
 "combining apply, map, & filter"
 (map square (filter number? crazylist))
@@ -54,12 +59,11 @@ crazylist
     (if (null? lst)
         base-case
         (operator (car lst) (red operator base-case (cdr lst))))))
-red
-"Sum a list"
+"sum a list"
 (red + 0 lst)
-"Multiply a list"
+"multiply a list"
 (red * 1 lst)
-"Halve every element in a list"
+"halve every element in a list"
 (define halve (lambda (x) (/ x 2)))
 (red (lambda (carval cdrval) (cons (halve carval) cdrval)) '() lst)
 "Length of a list"
@@ -77,22 +81,28 @@ red
     (if (null? lst)
         acc
         (red-tail operator base-case (cdr lst) (operator (car lst) acc)))))
-(red-tail + 0 lst 0) ; Sums to 15
+(red-tail + 0 lst 0)
 
 (newline)
-"Reduce2"
+"Reduce version 2"
 (define red2
-  (lambda (combine operator base-case lst)
+  (lambda (combinefunction operator base-case lst)
     (if (null? lst)
         base-case
-        (combine (operator (car lst)) (red2 combine operator base-case (cdr lst))))))
-"Halve every element in a list"
+        (combinefunction (operator (car lst)) (red2 combinefunction operator base-case (cdr lst))))))
+"halve every element in a list"
 (red2 cons halve '() lst)
 "Length of a list"
 (red2 + (lambda (x) 1) 0 lst)
 (red2 + (lambda (x) 1) 0 '(a b c d e f g h i j k l m))
-"Reversing a list"
+"Get2 all even numbers"
+(red2
+ (lambda (carval cdrval) (if (even? carval) (cons carval cdrval) cdrval))
+ (lambda (x) x)
+ '() lst)
+"Reverse a list"
 (red2 (lambda (carval cdrval) (append cdrval (list carval))) (lambda (x) x) '() lst)
+
 
 (newline)
 "Let structures"
@@ -100,10 +110,10 @@ red
 (define b 5)
 
 (let
-    ((a 10)
-    (b 11)
-    (c 12))
-  (+ a b c))
+ ((a 10)
+  (b 11)
+  (c 12))
+ (+ a b c))
 
 (let
     ((j 4)
@@ -201,12 +211,14 @@ red
 (add-10 10)
 (add-10 -17)
 
+
 "function to create a polynomial function"
 ; f(x) = ax^2 + bx + c
 (define f
   (lambda (a b c)
     (lambda (x)
       (+ (* a x x) (* b x) c))))
+
 "f(x) = x^2 + x + 1"
 (f 1 1 1)
 ((f 1 1 1) 3)
