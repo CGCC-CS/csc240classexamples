@@ -4,7 +4,7 @@
 
 % base case: f(0)
 recfunc(0, 1).
-%         f(n) =                                f(n-1)     f(n-1) + 2n
+%         f(n) =                            f(n-1)        f(n-1) + 2n
 recfunc(N, F) :- N > 0, N1 is N - 1,  recfunc(N1, F1),  F is F1 + (2 * N).
 
 % lists & pairs
@@ -50,11 +50,16 @@ pairparts([H | T], H, T).
 % is_pair/1
 is_pair([_|_]).
 
-% % sample output
-% ?- is_pair(2).
+% ?- is_pair(x).
 % false.
 % 
+% ?- is_pair(Y).
+% Y = [_|_].
+% 
 % ?- is_pair([a|b]).
+% true.
+% 
+% ?- is_pair([a,b]).
 % true.
 % 
 % ?- is_pair([]).
@@ -64,26 +69,24 @@ is_pair([_|_]).
 % true.
 
 % is_list/1
-is_list([]).                  % the empty list is a list
-is_list([_|T]) :- is_list(T). % a list is a pair where the tail is a list
+is_list([]).
+is_list([_|T]) :- is_list(T).
 
 % swap_head_tail/2
 swap_head_tail([H|T], [T|H]).
 
-% sample output
-% ?- swap_head_tail([1|2], X).
-% X = [2|1].
+% ?- swap_head_tail([1,2,3,4,5],X).
+% X = [[2, 3, 4, 5]|1].
 % 
-% ?- swap_head_tail(X, [a|b]).
+% ?- swap_head_tail(X, [1,2,3,4,5]).
+% X = [[2, 3, 4, 5]|1].
+% 
+% ?- swap_head_tail([a|b],X).
 % X = [b|a].
-% 
-% ?- swap_head_tail([1|2], [X|Y]).
-% X = 2,
-% Y = 1.
-% 
-% ?- swap_head_tail([a,b,c,d], X).
-% X = [[b, c, d]|a].
-% 
+% % 
+% ?- swap_head_tail(X, [[a,b,c],1,2,3]).
+% X = [[1, 2, 3], a, b, c].
+%
 % ?- swap_head_tail([a,b,c,d], [H|T]).
 % H = [b, c, d],
 % T = a.
@@ -97,26 +100,31 @@ swap_head_tail([H|T], [T|H]).
 % at_least_four_elements/1 - does a list have at least 4 elements?
 at_least_four_elements([_,_,_,_|_]).
 
-% third_element/2 - what is the 3rd element of a list?
-third_element([_,_,Third|_], Third).
+% thirst_element/2 - what is the third element?
+third_element([_, _, Third|_], Third).
 
-% this_is_weird/6
+% this_is_wierd/6
 this_is_weird(A,B,C,D,E,[A, [B,B], [C|D], [E,E,E]]).
 
-% add_list/2 - add the elements of a list together
-add_list([], 0).
-add_list([H|T], Sum) :- add_list(T, TailSum), Sum is H + TailSum.
+% sum_list/2 - add the elements of a list together
+add_list([],0).
+add_list([H|T], Result) :- add_list(T, TailSum), Result is H + TailSum.
 
-% increment/2 - increment each element is list
-increment([], []).
-increment([H|T], [H1|TailIncremented]) :- H1 is H + 1, increment(T, TailIncremented).
+% increment/2 - increment each element in the list
+increment([],[]).
+increment([H|T], [H1|TailIncremented]) :- H1 is H + 1, increment(T,TailIncremented).
 
-% multiples_of_n/2 - get the multiples of N
+% multiples_of_n/2
 multiples_of_n([], _, []).
 multiples_of_n([H|T], N, [H|TailMults]) :- 0 is H mod N, multiples_of_n(T, N, TailMults).
-multiples_of_n([H|T], N, TailMults) :- X is H mod N, X>0, multiples_of_n(T, N, TailMults).
+multiples_of_n([H|T], N, TailMults) :- X is H mod N, X > 0, multiples_of_n(T, N, TailMults).
+
+% add_neighbors/2
+add_neighbors([],[]).
+add_neighbors([X],[X2]) :- X2 is 2 * X.
+add_neighbors([H1,H2|T], [Sum|TailResult] ) :- Sum is H1 + H2, add_neighbors(T,TailResult).
 
 % append/3
 append([], L, L).
 append(L, [], L).
-append([H|T], L, [H|AppendedTL]) :- append(T, L, AppendedTL).
+append([H|T], L, [H|AppendedTail]) :- append(T, L, AppendedTail).
