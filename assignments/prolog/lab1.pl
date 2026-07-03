@@ -23,7 +23,7 @@ stateinfo(california, 34000000, 163000).
 stateinfo(texas, 21000000, 269000).
 stateinfo(arizona, 5000000, 111990).
 
-% show/2 (Title, Year, Rating)
+% show/3 (Title, Year, Rating)
 show(seinfeld, 1989, 8.9).
 show(the_xfiles, 1993, 8.7).
 show(friends, 1994, 8.9).
