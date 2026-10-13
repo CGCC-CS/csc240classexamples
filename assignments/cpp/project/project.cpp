@@ -62,7 +62,8 @@ int main() {
     cout << "testterm3: " << testterm3.toString() << endl;
 
     // Test Polynomial object 
-    printf("\nTesting basic polynomial functions: ") ;
+    cout << endl;
+    cout << "Testing basic polynomial functions: ";
     Polynomial testPoly;
     cout << "Adding terms ";
     testPoly.add(testterm1);
